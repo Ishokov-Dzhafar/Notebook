@@ -6,6 +6,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
     </style>
+
+    <style name="ToolbarCustom" parent="Theme.MaterialComponents.Light">
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:backgroundSplit">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <!--To change the background of options menu-->
+        <item name="android:itemBackground">@color/colorPrimary</item>
+    </style>
+
+
 
 </resources>

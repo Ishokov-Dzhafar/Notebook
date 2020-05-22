@@ -1,0 +1,50 @@
+ext {
+    navigationVersion = '2.3.0-alpha06'
+    coroutinesVersion = '1.3.5'
+    retrofitVersion = '2.8.1'
+    okhttpVersion = '4.5.0'
+    lifecycleVersion = '2.2.0'
+    roomVersion = '2.2.5'
+    workManagerVersion  = '2.3.4'
+    daggerVersion = '2.27'
+
+
+    // Navigation
+    navigationDependencies = ['navigarion-fragment': "androidx.navigation:navigation-fragment-ktx:${navigationVersion}",
+                  'navigation-ui': "androidx.navigation:navigation-ui-ktx:${navigationVersion}"]
+
+    // Coroutines
+    coroutineDependencies =[ 'coroutine-core': "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}",
+     'coroutine-android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"]
+
+    // Retrofit
+    retrofitDependencies = ['retrofit-converter': "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+    'retrofit': "com.squareup.retrofit2:retrofit:${retrofitVersion}"]
+
+    // Okhttp
+    okhttpDependencies = ['okhttp-interceptor': "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+    'okhttp': "com.squareup.okhttp3:okhttp:${okhttpVersion}"]
+
+    // ViewModel
+    viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycleVersion}"
+
+    // LiveData
+    liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycleVersion}"
+
+    // Lifecycles only (without ViewModel or LiveData)
+    lifecycle =  "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleVersion}"
+
+    // Room
+    roomDependencies = ['room-runtime': "androidx.room:room-runtime:${roomVersion}",
+                        'room': "androidx.room:room-ktx:${roomVersion}"]
+
+    roomKapt = "androidx.room:room-compiler:${roomVersion}"
+
+
+    // WorkManager
+    workManager = "androidx.work:work-runtime-ktx:${workManagerVersion}"
+
+    //Dagger2
+    dagger = "com.google.dagger:dagger:${daggerVersion}"
+    daggerKapt = "com.google.dagger:dagger-compiler:${daggerVersion}"
+}
