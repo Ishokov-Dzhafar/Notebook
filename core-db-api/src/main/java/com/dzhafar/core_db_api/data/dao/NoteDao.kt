@@ -12,5 +12,5 @@ interface NoteDao {
     fun fetchAll(): Flow<List<Note>>
 
     @Insert
-    fun insertNote(note: Note)
+    suspend fun insertNote(note: Note): Long
 }

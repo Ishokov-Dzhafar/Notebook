@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
         <variable
             name="note"
             type="com.dzhafar.main.domain.models.Note" />
+
+        <import
+            type="com.dzhafar.core_db_api.UtilsKt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
@@ -21,6 +24,7 @@
             android:ellipsize="end"
             android:gravity="start"
             android:text="@{note.title}"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/date"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="@{String.valueOf(note.date)}"
+            android:text="@{UtilsKt.getLocalDateFormat(note.date)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/title"
@@ -44,6 +48,9 @@
             android:layout_marginTop="16dp"
             android:gravity="start"
             android:text="@{note.text}"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />

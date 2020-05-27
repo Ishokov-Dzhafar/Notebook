@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dzhafar.core_db_api.di.AppWithFacade
@@ -59,7 +60,8 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainComponent.create((requireActivity().application as AppWithFacade).getFacade()).inject(this)
+        MainComponent.create((requireActivity().application as AppWithFacade).getFacade(),
+            (requireActivity().application as AppWithFacade).getMainNavProvider()).inject(this)
         (activity as MainActivity).setSupportActionBar(toolbarView as Toolbar)
         (activity as MainActivity).supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbarView.title = resources.getString(R.string.main_title)
@@ -69,7 +71,8 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
         super.onResume()
         viewModel.noteList.observe(viewLifecycleOwner, Observer {
             noteListAdapterRV.setData(it)
-            Log.d("NOTE LIST FRAGMENT", it.last().text)
+            noteListAdapterRV.notifyDataSetChanged()
+            Log.d("NOTE LIST FRAGMENT", it.isEmpty().toString())
         })
     }
 
@@ -82,6 +85,7 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.addNote ->  {
+                findNavController().navigate(viewModel.toCreateNote.action)
                 Log.d("NOTE LIST FRAGMENT", "ADD NOTE")
                 true
             }

@@ -14,6 +14,7 @@ class NoteListRVAdapter: RecyclerView.Adapter<NoteListRVAdapter.NoteListItemVH>(
     var noteList: MutableList<Note> = mutableListOf()
 
     fun setData(list: List<Note>) {
+        noteList.clear()
         noteList.addAll(list)
     }
 
