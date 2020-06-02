@@ -1,9 +1,6 @@
 package com.dzhafar.main.di
 
-import com.dzhafar.core_db_api.di.MainNavProvider
 import com.dzhafar.core_db_api.di.ProvidersFacade
-import com.dzhafar.core_db_api.navigation.NavCommand
-import com.dzhafar.core_db_api.navigation.note.NoteNavCommand
 import com.dzhafar.main.presentation.MainActivity
 import com.dzhafar.main.presentation.view.CreateNoteFragment
 import com.dzhafar.main.presentation.view.NoteListFragment
@@ -12,21 +9,16 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [ProvidersFacade::class, MainNavProvider::class],
+    dependencies = [ProvidersFacade::class],
     modules = [InteractorsModule::class, RepositoryModule::class, ViewModelModule::class]
 )
 interface MainComponent {
 
     companion object {
 
-        fun create(providersFacade: ProvidersFacade, mainNavProvider: MainNavProvider): MainComponent {
-            /*val noteNavCommand: NoteNavCommand = object : NoteNavCommand {
-                override val toCreateNote = providersFacade.toCreateNote
-            }*/
+        fun create(providersFacade: ProvidersFacade): MainComponent {
             return DaggerMainComponent.builder()
                 .providersFacade(providersFacade)
-                .mainNavProvider(mainNavProvider)
-                //.noteNavCommand(noteNavCommand)
                 .build()
         }
     }

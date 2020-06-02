@@ -2,23 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/main_nav_graph">
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/noteListFragment">
 
-    <include app:graph="@navigation/main_nav_graph"/>
-
-    <!--<fragment
+    <fragment
         android:id="@+id/noteListFragment"
         android:name="com.dzhafar.main.presentation.view.NoteListFragment"
         android:label="fragment_note_list"
-        tools:layout="@layout/fragment_note_list" >
+        tools:layout="@layout/fragment_note_list">
         <action
             android:id="@+id/action_noteListFragment_to_createNoteFragment"
             app:destination="@id/createNoteFragment" />
-        <deepLink app:uri="{deeplink}/note_list" />
+        <!--если нужно сделать переход из Feature module то использовать deepLink
+        (Пример: https://medium.com/swlh/using-the-navigation-component-in-a-modular-world-e7578825962)-->
     </fragment>
     <fragment
         android:id="@+id/createNoteFragment"
         android:name="com.dzhafar.main.presentation.view.CreateNoteFragment"
-        android:label="CreateNoteFragment" />-->
+        android:label="CreateNoteFragment" />
 </navigation>

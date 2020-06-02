@@ -44,8 +44,7 @@ class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainComponent.create((requireActivity().application as AppWithFacade).getFacade(),
-            (requireActivity().application as AppWithFacade).getMainNavProvider()).inject(this)
+        MainComponent.create((requireActivity().application as AppWithFacade).getFacade()).inject(this)
         (activity as MainActivity).setSupportActionBar(toolbarView as Toolbar)
         (activity as MainActivity).supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbarView.title = resources.getString(R.string.main_title)

@@ -60,8 +60,7 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainComponent.create((requireActivity().application as AppWithFacade).getFacade(),
-            (requireActivity().application as AppWithFacade).getMainNavProvider()).inject(this)
+        MainComponent.create((requireActivity().application as AppWithFacade).getFacade()).inject(this)
         (activity as MainActivity).setSupportActionBar(toolbarView as Toolbar)
         (activity as MainActivity).supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbarView.title = resources.getString(R.string.main_title)
@@ -85,7 +84,7 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.addNote ->  {
-                findNavController().navigate(viewModel.toCreateNote.action)
+                findNavController().navigate(R.id.action_noteListFragment_to_createNoteFragment)
                 Log.d("NOTE LIST FRAGMENT", "ADD NOTE")
                 true
             }
