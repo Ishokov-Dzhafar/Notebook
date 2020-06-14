@@ -2,6 +2,7 @@ package com.dzhafar.core_db_api
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.view.inputmethod.InputMethodManager
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,3 +26,8 @@ fun getLocalDateFormat(milleseconds: Long): String {
     calendar.timeInMillis = milleseconds
     return formatter.format(calendar.time)
 }
+
+val Int.dp: Int
+    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

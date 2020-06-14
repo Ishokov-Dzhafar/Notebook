@@ -17,43 +17,53 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
+        <com.dzhafar.main.presentation.view.CustomCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:text="@{note.title}"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/date"
-            app:layout_constraintHorizontal_weight="3"
+            android:id="@+id/customCardView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@{UtilsKt.getLocalDateFormat(note.date)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="start"
-            android:text="@{note.text}"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="start"
+                        android:text="@{note.title}"
+                        android:textStyle="bold"
+                        android:layout_weight="3" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@{UtilsKt.getLocalDateFormat(note.date)}"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:text="@{note.text}"
+                android:maxLines="5"
+                android:ellipsize="end"
+                />
+
+        </com.dzhafar.main.presentation.view.CustomCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
