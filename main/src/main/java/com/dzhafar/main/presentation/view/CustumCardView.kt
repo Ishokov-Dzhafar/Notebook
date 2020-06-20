@@ -1,12 +1,11 @@
 package com.dzhafar.main.presentation.view
 
 import android.content.Context
-import android.graphics.Paint
-import android.graphics.Color
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
-import android.os.Parcelable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,13 +50,14 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
             binding!!.noteList.layoutManager = llm
             binding!!.noteList.adapter = noteListAdapterRV
             setHasOptionsMenu(true)
-            val toolbarView = binding!!.root.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarView)
+            val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
             toolbarView.title = resources.getString(R.string.main_title)
             toolbarView.inflateMenu(R.menu.note_list_menu)
             toolbarView.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.addNote -> {
-                        findNavController().navigate(R.id.action_noteListFragment_to_createNoteFragment)
+                        findNavController()
+                            .navigate(R.id.action_noteListFragment_to_createNoteFragment)
                         Log.d("NOTE LIST FRAGMENT", "ADD NOTE")
                         true
                     }
@@ -65,8 +67,6 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
         }
         return binding!!.root
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

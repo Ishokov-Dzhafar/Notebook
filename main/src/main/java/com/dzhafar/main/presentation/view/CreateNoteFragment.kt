@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,7 +18,6 @@ import com.dzhafar.main.R
 import com.dzhafar.main.databinding.FragmentCreateNoteBinding
 import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.vm.CreateNoteVM
-import kotlinx.android.synthetic.main.toolbar.toolbarView
 import javax.inject.Inject
 
 class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
@@ -36,7 +36,7 @@ class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_note,
                 container, false)
-            val toolbarView = binding!!.root.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarView)
+            val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
             setHasOptionsMenu(true)
             toolbarView.title = resources.getString(R.string.main_title)
             toolbarView.inflateMenu(R.menu.create_note_menu)
