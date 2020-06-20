@@ -3,20 +3,12 @@ package com.dzhafar.main.data.repository
 import com.dzhafar.core_db_api.di.DBApi
 import com.dzhafar.main.domain.models.Note
 import com.dzhafar.main.domain.repositories.NoteRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(private val db: DBApi) :
     NoteRepository {
-    val supervisorJob = SupervisorJob()
-    val coroutineScope = CoroutineScope(Dispatchers.IO + supervisorJob)
-
-
     override fun getNoteList(): Flow<List<Note>> {
         return db.noteDao().fetchAll().map { dbNoteList ->
             dbNoteList.map {

@@ -10,5 +10,4 @@ import javax.inject.Inject
 class NoteListVM @Inject constructor(noteInteractor: NoteInteractor) : ViewModel() {
 
     val noteList: LiveData<List<Note>> = noteInteractor.getNoteList().asLiveData()
-
 }

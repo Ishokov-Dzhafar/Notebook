@@ -8,4 +8,4 @@ import javax.inject.Singleton
 
 @Singleton
 @Database(entities = [Note::class], version = 1)
-abstract class CoreDB: RoomDatabase(), DBApi
+abstract class CoreDB : RoomDatabase(), DBApi

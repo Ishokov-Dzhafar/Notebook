@@ -6,7 +6,6 @@ import com.dzhafar.main.presentation.vm.CreateNoteVM
 import com.dzhafar.main.presentation.vm.NoteListVM
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module

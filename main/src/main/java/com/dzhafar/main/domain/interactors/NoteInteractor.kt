@@ -4,6 +4,6 @@ import com.dzhafar.main.domain.models.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NoteInteractor {
-    fun getNoteList() : Flow<List<com.dzhafar.main.domain.models.Note>>
+    fun getNoteList(): Flow<List<Note>>
     suspend fun createNote(note: Note): Long
 }

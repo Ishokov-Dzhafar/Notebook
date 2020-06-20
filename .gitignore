@@ -13,3 +13,8 @@
 /captures
 .externalNativeBuild
 .cxx
+/core/build
+/core-db-api/build
+/core-db-impl/build
+/main/build
+/app/build

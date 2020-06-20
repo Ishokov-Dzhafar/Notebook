@@ -1,8 +1,11 @@
 package com.dzhafar.main.presentation.view
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Paint
+import android.graphics.Color
+import android.graphics.Canvas
+import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
@@ -11,35 +14,27 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.dzhafar.core_db_api.px
+import kotlin.math.min
 
-
-class CustomCardView: ViewGroup {
+class CustumCardView : ViewGroup {
 
     companion object {
         const val TAG = "CustomCardView"
     }
 
-    constructor(context: Context, attr: AttributeSet) : super(context, attr) {
+    constructor(context: Context, attr: AttributeSet) : super(context, attr)
 
+    constructor(context: Context) : super(context)
+    var paintShadow: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.WHITE
+        style = Paint.Style.FILL
+    }
+    var paintStar: Paint = Paint().apply {
+        color = Color.LTGRAY
+        strokeWidth = 5.px * 1f
     }
 
-    constructor(context: Context): super(context)
-    var paintShadow: Paint
-    var paintStar: Paint
-
-    val padding = 15.px
-    init {
-        paintStar = Paint().apply {
-            color = Color.LTGRAY
-            strokeWidth = 5.px*1f
-        }
-
-        paintShadow = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.WHITE
-            style = Paint.Style.FILL
-        }
-    }
-
+    private val padding = 15.px
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
@@ -47,22 +42,24 @@ class CustomCardView: ViewGroup {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        Log.d(TAG, "onMeasureMode width = ${widthMode} height = ${heightMode}")
+        Log.d(TAG, "onMeasureMode width = $widthMode height = $heightMode")
 
-        when(widthMode) {
+        when (widthMode) {
             MeasureSpec.UNSPECIFIED -> {
                 Log.d(TAG, "onMeasureMode UNSPECIFIED")
-                Log.d(TAG, "onMeasureSize UNSPECIFIED widthSize = ${widthSize}, heightSize = ${heightSize}")
-
+                Log.d(TAG, "onMeasureSize UNSPECIFIED widthSize = $widthSize, " +
+                        "heightSize = $heightSize")
             }
             MeasureSpec.AT_MOST -> {
                 Log.d(TAG, "onMeasureMode AT_MOST")
-                Log.d(TAG, "onMeasureSize AT_MOST widthSize = ${widthSize}, heightSize = ${heightSize}")
+                Log.d(TAG, "onMeasureSize AT_MOST widthSize = $widthSize, " +
+                        "heightSize = $heightSize")
                 setMeasuredDimension(widthSize, heightSize)
             }
             MeasureSpec.EXACTLY -> {
                 Log.d(TAG, "onMeasureMode EXACTLY")
-                Log.d(TAG, "onMeasureSize EXACTLY widthSize = ${widthSize}, heightSize = ${heightSize}")
+                Log.d(TAG, "onMeasureSize EXACTLY widthSize = $widthSize, " +
+                        "heightSize = $heightSize")
             }
         }
 
@@ -70,24 +67,22 @@ class CustomCardView: ViewGroup {
 
         var maxHeight = 0
 
-        for (i in 0 .. childCount-1) {
-
-
-
+        for (i in 0 until childCount) {
             Log.d(TAG, "MARGINS = ${getChildAt(i).marginTop}")
-            val widthSpec = MeasureSpec.makeMeasureSpec(widthSize-2*padding, widthMode)
-            val heightSpec = MeasureSpec.makeMeasureSpec(heightSize-2*padding, heightMode)
-
-
+            val widthSpec = MeasureSpec.makeMeasureSpec(widthSize - 2 * padding, widthMode)
+            val heightSpec = MeasureSpec.makeMeasureSpec(heightSize - 2 * padding, heightMode)
             measureChild(getChildAt(i), widthSpec, heightSpec)
-            maxHeight += getChildAt(i).measuredHeight + getChildAt(i).marginTop+getChildAt(i).marginBottom
+            maxHeight += getChildAt(i).measuredHeight + getChildAt(i).marginTop +
+                    getChildAt(i).marginBottom
         }
 
-        maxHeight += 2*padding
+        maxHeight += 2 * padding
         Log.d(TAG, "maxHeight = $maxHeight")
 
         val mode = MeasureSpec.makeMeasureSpec(maxHeight, heightMode)
-        val widthmode = MeasureSpec.makeMeasureSpec(getChildAt(0).measuredWidth + getChildAt(0).marginLeft+getChildAt(0).marginRight + padding, widthMode)
+        val widthmode = MeasureSpec.makeMeasureSpec(getChildAt(0).measuredWidth +
+                getChildAt(0).marginLeft + getChildAt(0).marginRight + padding,
+            widthMode)
 
         setMeasuredDimension(widthmode, mode)
     }
@@ -99,8 +94,9 @@ class CustomCardView: ViewGroup {
 
         val leftPosition = padding
         var topPosition = padding
-        for(i in 0 .. childCount-1) {
-            getChildAt(i).layout(leftPosition, topPosition, leftPosition + getChildAt(i).measuredWidth, topPosition + getChildAt(i).measuredHeight)
+        for (i in 0 until childCount) {
+            getChildAt(i).layout(leftPosition, topPosition, leftPosition +
+                    getChildAt(i).measuredWidth, topPosition + getChildAt(i).measuredHeight)
             topPosition += getChildAt(i).measuredHeight
         }
     }
@@ -110,32 +106,28 @@ class CustomCardView: ViewGroup {
         Log.d(TAG, "dispatchDraw height = $height  width = $width")
 
         setLayerType(LAYER_TYPE_SOFTWARE, paintShadow)
-        val radius = 5.px*1f
-        val dx = 1.px*1f
-        val dy = 1.px*1f
+
+        val radius = 5.px * 1f
+        val dx = 1.px * 1f
+        val dy = 1.px * 1f
+
         paintShadow.setShadowLayer(radius, dx, dy, Color.BLUE)
 
-        canvas.drawRoundRect(RectF(radius, radius, (width-2*radius)*1f, (height-2*radius)*1f), radius, radius, paintShadow)
-
+        canvas.drawRoundRect(RectF(radius, radius, (width - 2 * radius) * 1f,
+            (height - 2 * radius) * 1f), radius, radius, paintShadow)
 
         var mid = width / 2.toFloat()
-        val min = Math.min(width, height).toFloat() - 2*padding
+        val min = min(width, height).toFloat() - 2 * padding
         val fat = min / 17
         val half = min / 2
         val rad = half - fat
-        mid = mid - half
-
-        paintStar.setStrokeWidth(fat)
-        paintStar.setStyle(Paint.Style.STROKE)
-
+        mid -= half
+        paintStar.strokeWidth = fat
+        paintStar.style = Paint.Style.STROKE
         canvas.drawCircle(mid + half, half + padding, rad, paintStar)
-
         val path = Path()
         path.reset()
-
-        paintStar.setStyle(Paint.Style.FILL)
-
-
+        paintStar.style = Paint.Style.FILL
         // top left
         path.moveTo(mid + half * 0.5f, half * 0.84f + padding)
         // top right
@@ -159,5 +151,4 @@ class CustomCardView: ViewGroup {
 
         super.dispatchDraw(canvas)
     }
-
 }

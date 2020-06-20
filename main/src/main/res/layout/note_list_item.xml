@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <com.dzhafar.main.presentation.view.CustomCardView
+        <com.dzhafar.main.presentation.view.CustumCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/customCardView"
@@ -63,7 +63,7 @@
                 android:ellipsize="end"
                 />
 
-        </com.dzhafar.main.presentation.view.CustomCardView>
+        </com.dzhafar.main.presentation.view.CustumCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
