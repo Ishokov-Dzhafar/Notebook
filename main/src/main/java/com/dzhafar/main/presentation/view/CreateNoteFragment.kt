@@ -36,8 +36,26 @@ class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_note,
                 container, false)
+            val toolbarView = binding!!.root.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarView)
+            setHasOptionsMenu(true)
+            toolbarView.title = resources.getString(R.string.main_title)
+            toolbarView.inflateMenu(R.menu.create_note_menu)
+            toolbarView.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.save -> {
+                        viewModel.createNoteLD.observe(viewLifecycleOwner, Observer {
+                            hideKeyboard(requireActivity())
+                            findNavController().popBackStack()
+                            Log.d("CREATE NOTE FRAGMENT", "SAVE NOTE")
+                        })
+                        viewModel.createNote(binding!!.noteTitle.text.toString(),
+                            binding!!.noteText.text.toString())
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
-        setHasOptionsMenu(true)
         return binding!!.root
     }
 
@@ -45,22 +63,5 @@ class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
         super.onViewCreated(view, savedInstanceState)
         MainComponent.create((requireActivity().application as AppWithFacade).getFacade())
             .inject(this)
-        toolbarView.title = resources.getString(R.string.main_title)
-        toolbarView.inflateMenu(R.menu.create_note_menu)
-        toolbarView.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.save -> {
-                    viewModel.createNoteLD.observe(viewLifecycleOwner, Observer {
-                        hideKeyboard(requireActivity())
-                        findNavController().popBackStack()
-                        Log.d("CREATE NOTE FRAGMENT", "SAVE NOTE")
-                    })
-                    viewModel.createNote(binding!!.noteTitle.text.toString(),
-                        binding!!.noteText.text.toString())
-                    true
-                }
-                else -> false
-            }
-        }
     }
 }

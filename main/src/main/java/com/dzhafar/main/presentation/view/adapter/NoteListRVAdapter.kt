@@ -3,17 +3,20 @@ package com.dzhafar.main.presentation.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.NoteListItemBinding
 import com.dzhafar.main.domain.models.Note
 
 class NoteListRVAdapter : RecyclerView.Adapter<NoteListRVAdapter.NoteListItemVH>() {
-    var noteList: MutableList<Note> = mutableListOf()
+    var noteList: List<Note> = listOf()
 
     fun setData(list: List<Note>) {
-        noteList.clear()
-        noteList.addAll(list)
+        val diffUtil = NoteListDiffUtil(noteList, list)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+        noteList = list
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteListItemVH {
@@ -34,6 +37,29 @@ class NoteListRVAdapter : RecyclerView.Adapter<NoteListRVAdapter.NoteListItemVH>
     class NoteListItemVH(val binding: NoteListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Note) {
             binding.note = item
+        }
+    }
+
+    class NoteListDiffUtil(private val oldList: List<Note>, private val newList: List<Note>)
+        : DiffUtil.Callback() {
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return  newList.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id &&
+                    oldList[oldItemPosition].date == newList[newItemPosition].date &&
+                    oldList[oldItemPosition].text == newList[newItemPosition].text &&
+                    oldList[oldItemPosition].title == newList[newItemPosition].title
         }
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
@@ -105,8 +106,6 @@ class CustumCardView : ViewGroup {
         if (canvas == null) return
         Log.d(TAG, "dispatchDraw height = $height  width = $width")
 
-        setLayerType(LAYER_TYPE_SOFTWARE, paintShadow)
-
         val radius = 5.px * 1f
         val dx = 1.px * 1f
         val dy = 1.px * 1f
@@ -148,7 +147,6 @@ class CustumCardView : ViewGroup {
 
         path.close()
         canvas.drawPath(path, paintStar)
-
         super.dispatchDraw(canvas)
     }
 }

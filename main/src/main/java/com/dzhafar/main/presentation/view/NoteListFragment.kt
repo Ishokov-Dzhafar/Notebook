@@ -18,7 +18,6 @@ import com.dzhafar.main.databinding.FragmentNoteListBinding
 import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.view.adapter.NoteListRVAdapter
 import com.dzhafar.main.presentation.vm.NoteListVM
-import kotlinx.android.synthetic.main.toolbar.toolbarView
 import javax.inject.Inject
 
 /**
@@ -50,26 +49,30 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
             binding!!.noteList.layoutManager = llm
             binding!!.noteList.adapter = noteListAdapterRV
             setHasOptionsMenu(true)
+            val toolbarView = binding!!.root.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarView)
+            toolbarView.title = resources.getString(R.string.main_title)
+            toolbarView.inflateMenu(R.menu.note_list_menu)
+            toolbarView.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.addNote -> {
+                        findNavController().navigate(R.id.action_noteListFragment_to_createNoteFragment)
+                        Log.d("NOTE LIST FRAGMENT", "ADD NOTE")
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
         return binding!!.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        retainInstance = true
         MainComponent.create((requireActivity().application as AppWithFacade)
             .getFacade()).inject(this)
-        toolbarView.title = resources.getString(R.string.main_title)
-        toolbarView.inflateMenu(R.menu.note_list_menu)
-        toolbarView.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.addNote -> {
-                    findNavController().navigate(R.id.action_noteListFragment_to_createNoteFragment)
-                    Log.d("NOTE LIST FRAGMENT", "ADD NOTE")
-                    true
-                }
-                else -> false
-            }
-        }
 
         viewModel.noteList.observe(viewLifecycleOwner, Observer {
             noteListAdapterRV.setData(it)
