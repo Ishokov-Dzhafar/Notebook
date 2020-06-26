@@ -28,13 +28,11 @@ import javax.inject.Inject
  */
 class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
-    val viewModel: NoteListVM by viewModels { viewModelFactory }
-
     @Inject lateinit var viewModelFactory: ViewModelFactory
 
-    private val noteListAdapterRV: NoteListRVAdapter by lazy {
-        NoteListRVAdapter()
-    }
+    private val viewModel: NoteListVM by viewModels { viewModelFactory }
+
+    private lateinit var noteListAdapterRV: NoteListRVAdapter
 
     var binding: FragmentNoteListBinding? = null
 
@@ -43,9 +41,12 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        MainComponent.create((requireActivity().application as AppWithFacade)
+            .getFacade()).inject(this)
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list,
                 container, false)
+            noteListAdapterRV = NoteListRVAdapter(viewModel)
             val llm = LinearLayoutManager(context)
             binding!!.noteList.layoutManager = llm
             binding!!.noteList.adapter = noteListAdapterRV
@@ -71,9 +72,6 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retainInstance = true
-        MainComponent.create((requireActivity().application as AppWithFacade)
-            .getFacade()).inject(this)
-
         viewModel.noteList.observe(viewLifecycleOwner, Observer {
             noteListAdapterRV.setData(it)
             noteListAdapterRV.notifyDataSetChanged()

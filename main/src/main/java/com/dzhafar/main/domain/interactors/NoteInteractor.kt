@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface NoteInteractor {
     fun getNoteList(): Flow<List<Note>>
     suspend fun createNote(note: Note): Long
+    suspend fun deleteNote(note: Note)
 }

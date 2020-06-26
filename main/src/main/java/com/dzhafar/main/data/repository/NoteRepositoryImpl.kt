@@ -22,4 +22,8 @@ class NoteRepositoryImpl @Inject constructor(private val db: DBApi) :
                 id = note.id, text = note.text, date = note.date, title = note.title
             ))
     }
+
+    override suspend fun deleteNote(note: Note) {
+        return db.noteDao().deleteNoteById(note.id!!)
+    }
 }
