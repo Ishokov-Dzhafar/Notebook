@@ -27,7 +27,7 @@ allprojects {
         android = true
         outputToConsole = true
         outputColorName = "RED"
-        ignoreFailures = true
+        ignoreFailures = false
         enableExperimentalRules = false
         additionalEditorconfigFile = file("/some/additional/.editorconfig")
         disabledRules = ["final-newline", "import-ordering"]
