@@ -72,7 +72,7 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retainInstance = true
-        viewModel.noteList.observe(viewLifecycleOwner, Observer {
+        viewModel.noteModelList.observe(viewLifecycleOwner, Observer {
             noteListAdapterRV.setData(it)
             noteListAdapterRV.notifyDataSetChanged()
             Log.d("NOTE LIST FRAGMENT", it.isEmpty().toString())

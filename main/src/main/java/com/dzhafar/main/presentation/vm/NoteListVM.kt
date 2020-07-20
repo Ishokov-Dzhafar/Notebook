@@ -5,17 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.dzhafar.main.domain.interactors.NoteInteractor
-import com.dzhafar.main.domain.models.Note
+import com.dzhafar.main.domain.models.NoteModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NoteListVM @Inject constructor(private val noteInteractor: NoteInteractor) : ViewModel() {
 
-    val noteList: LiveData<List<Note>> = noteInteractor.getNoteList().asLiveData()
+    val noteModelList: LiveData<List<NoteModel>> = noteInteractor.getNoteList().asLiveData()
 
-    fun deleteNote(note: Note) {
+    fun deleteNote(noteModel: NoteModel) {
         viewModelScope.launch {
-            noteInteractor.deleteNote(note)
+            noteInteractor.deleteNote(noteModel)
         }
     }
 }
