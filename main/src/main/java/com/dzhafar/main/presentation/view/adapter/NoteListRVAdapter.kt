@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.NoteListItemBinding
-import com.dzhafar.main.domain.models.Note
+import com.dzhafar.main.domain.models.NoteModel
 import com.dzhafar.main.presentation.vm.NoteListVM
 
 class NoteListRVAdapter(private val viewModel: NoteListVM) :
@@ -21,12 +21,12 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
         val TAG = this::class.java.simpleName
     }
 
-    var noteList: List<Note> = listOf()
+    var noteModelList: List<NoteModel> = listOf()
 
-    fun setData(list: List<Note>) {
-        val diffUtil = NoteListDiffUtil(noteList, list)
+    fun setData(list: List<NoteModel>) {
+        val diffUtil = NoteListDiffUtil(noteModelList, list)
         val diffResult = DiffUtil.calculateDiff(diffUtil)
-        noteList = list
+        noteModelList = list
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -40,15 +40,15 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
     }
 
     override fun getItemCount(): Int {
-        return noteList.size
+        return noteModelList.size
     }
 
     override fun onBindViewHolder(holder: NoteListItemVH, position: Int) {
-        holder.bind(noteList[position])
+        holder.bind(noteModelList[position])
     }
 
     override fun getItemId(position: Int): Long {
-        return noteList[position].id!!
+        return noteModelList[position].id!!
     }
 
     override fun onViewAttachedToWindow(holder: NoteListItemVH) {
@@ -68,7 +68,7 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
 
     class NoteListItemVH(val binding: NoteListItemBinding, private val viewModel: NoteListVM) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Note) {
+        fun bind(item: NoteModel) {
             binding.note = item
             binding.motionContainer.setTransitionListener(object : MotionLayout.TransitionListener {
                 override fun onTransitionTrigger(
@@ -103,8 +103,8 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
     }
 
     class NoteListDiffUtil(
-        private val oldList: List<Note>,
-        private val newList: List<Note>
+        private val oldList: List<NoteModel>,
+        private val newList: List<NoteModel>
     ) : DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

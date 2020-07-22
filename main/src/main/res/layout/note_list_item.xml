@@ -6,7 +6,7 @@
 
         <variable
             name="note"
-            type="com.dzhafar.main.domain.models.Note" />
+            type="com.dzhafar.main.domain.models.NoteModel" />
 
         <import
             type="com.dzhafar.core_db_api.UtilsKt" />

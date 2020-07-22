@@ -7,6 +7,7 @@ ext {
     roomVersion = '2.2.5'
     workManagerVersion  = '2.3.4'
     daggerVersion = '2.27'
+    mokitoCoreVersion = '2.18.3'
 
 
     // Navigation
@@ -47,4 +48,8 @@ ext {
     //Dagger2
     dagger = "com.google.dagger:dagger:${daggerVersion}"
     daggerKapt = "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+    //Mokito
+    mokitoCore = "org.mockito:mockito-core:$mokitoCoreVersion"
+
 }

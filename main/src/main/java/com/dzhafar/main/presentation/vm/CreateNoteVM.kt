@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dzhafar.main.domain.interactors.NoteInteractor
-import com.dzhafar.main.domain.models.Note
+import com.dzhafar.main.domain.models.NoteModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +18,7 @@ class CreateNoteVM @Inject constructor(private val noteInteractor: NoteInteracto
     val createNoteLD: LiveData<Unit> = createNoteMLD
 
     fun createNote(title: String, text: String) {
-        val note = Note(
+        val note = NoteModel(
             text = text,
             date = Date().time,
             title = title,
