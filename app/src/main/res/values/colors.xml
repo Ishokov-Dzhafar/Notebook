@@ -3,4 +3,17 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="backColorPrimary">#99ccff</color>
+    <color name="white">#FFF</color>
+    <color name="grey700">#FF616161</color>
+    <color name="divider">#e6e6e6</color>
+    <color name="grey">#C0C0C0</color>
+    <color name="grey500">#FF888888</color>
+    <color name="lime">#009300</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#FFFF00</color>
+
+    <color name="mdtp_accent_color">#009688</color>
+    <color name="mdtp_accent_color_dark">#00796b</color>
+
 </resources>
