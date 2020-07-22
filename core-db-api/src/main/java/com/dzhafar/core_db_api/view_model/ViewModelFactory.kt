@@ -7,7 +7,10 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class ViewModelFactory @Inject constructor(@JvmSuppressWildcards private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
+class ViewModelFactory @Inject constructor(
+    @JvmSuppressWildcards private val creators: Map<Class<out ViewModel>,
+            @JvmSuppressWildcards Provider<ViewModel>>
+) :
     ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -21,6 +24,5 @@ class ViewModelFactory @Inject constructor(@JvmSuppressWildcards private val cre
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
 }

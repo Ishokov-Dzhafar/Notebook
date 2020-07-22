@@ -1,16 +1,12 @@
 package com.dzhafar.notebook
 
 import android.app.Application
-import android.content.Context
 import com.dzhafar.core_db_api.di.AppWithFacade
 import com.dzhafar.core_db_api.di.ProvidersFacade
 import com.dzhafar.notebook.di.FacadeComponent
 
-class MainApplication: Application(), AppWithFacade {
-
-
+class MainApplication : Application(), AppWithFacade {
     companion object {
-
         private var facadeComponent: FacadeComponent? = null
     }
 

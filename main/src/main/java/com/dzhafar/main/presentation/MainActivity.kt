@@ -1,12 +1,10 @@
 package com.dzhafar.main.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.dzhafar.core_db_api.di.AppProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.dzhafar.core_db_api.di.AppWithFacade
 import com.dzhafar.main.R
 import com.dzhafar.main.di.MainComponent
-
 
 class MainActivity : AppCompatActivity() {
 

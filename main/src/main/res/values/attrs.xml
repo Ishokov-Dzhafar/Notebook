@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomCardView">
+        <attr name="paddingInView" format="dimension"/>
+        <attr name="paddingOutView" format="dimension"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomCardView_Layout">
+
+        <!-- Standard gravity constant that a child supplies to its parent.
+         Defines how the child view should be positioned, on both the X and Y axes, within its enclosing layout. -->
+        <attr name="android:layout_gravity" format="flags">
+            <!-- Place object in the vertical center of its container, not changing its size. -->
+            <flag name="center_horizontal" value="0x01" />
+            <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+            <!-- Push object to the beginning of its container, not changing its size. -->
+            <flag name="start" value="0x00800003" />
+            <!-- Push object to the end of its container, not changing its size. -->
+            <flag name="end" value="0x00800005" />
+        </attr>
+    </declare-styleable>
+</resources>

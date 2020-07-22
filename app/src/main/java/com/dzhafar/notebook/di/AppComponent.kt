@@ -9,22 +9,14 @@ import javax.inject.Singleton
 
 @Singleton
 @Component
-interface AppComponent: AppProvider {
-    /*@Component.Builder
-    interface Builder {
-        fun build(): AppComponent
-    })*/
-    /*fun inject(fragment: NoteListFragment)
-    fun inject(mainActivity: MainActivity)*/
-
+interface AppComponent : AppProvider {
     companion object {
-
         private var appComponent: AppProvider? = null
 
         fun create(application: Application): AppProvider {
             return appComponent ?: DaggerAppComponent
                 .builder()
-                .application(application.applicationContext)
+                .context(application.applicationContext)
                 .build().also {
                     appComponent = it
                 }
@@ -35,7 +27,7 @@ interface AppComponent: AppProvider {
     interface Builder {
 
         @BindsInstance
-        fun application(context: Context): Builder
+        fun context(context: Context): Builder
         fun build(): AppComponent
     }
 }

@@ -8,5 +8,5 @@ import dagger.Module
 @Module
 interface RepositoryModule {
     @Binds
-    fun bindNoteRepository(repository: NoteRepositoryImpl) : com.dzhafar.main.domain.repositories.NoteRepository
+    fun bindNoteRepository(repository: NoteRepositoryImpl): NoteRepository
 }
