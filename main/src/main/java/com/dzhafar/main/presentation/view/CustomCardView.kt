@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewDebug.ExportedProperty
 import android.view.ViewDebug.IntToString
@@ -21,11 +20,15 @@ import com.dzhafar.main.R
 import kotlin.math.max
 import kotlin.math.min
 
-class CustomCardView(context: Context, attr: AttributeSet) : ViewGroup(context, attr) {
+class CustomCardView(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) :
+    ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
 
-    companion object {
-        const val TAG = "CustomCardView"
-    }
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attr: AttributeSet?) : this(context, attr, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+            this(context, attrs, defStyleAttr, 0)
 
     var paintShadow: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.WHITE
@@ -33,14 +36,14 @@ class CustomCardView(context: Context, attr: AttributeSet) : ViewGroup(context, 
     }
     var paintStar: Paint = Paint().apply {
         color = Color.LTGRAY
-        strokeWidth = 5.px * 1f
+        strokeWidth = 5.px.toFloat()
     }
 
     private var paddingInView = 16.px
     private var paddingOutView = 16.px
 
     init {
-        val typedArray = context.obtainStyledAttributes(attr, R.styleable.CustomCardView)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomCardView)
 
         try {
             paddingInView = typedArray.getDimensionPixelSize(
@@ -55,71 +58,66 @@ class CustomCardView(context: Context, attr: AttributeSet) : ViewGroup(context, 
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val parentWidthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val parentHeightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-        Log.d(TAG, "onMeasureMode width = $widthMode height = $heightMode")
-
-        when (widthMode) {
+        when (parentWidthMode) {
             MeasureSpec.UNSPECIFIED -> {
-                Log.d(TAG, "onMeasureMode UNSPECIFIED")
-                Log.d(
-                    TAG, "onMeasureSize UNSPECIFIED widthSize = $widthSize, " +
-                            "heightSize = $heightSize"
-                )
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             }
             MeasureSpec.AT_MOST -> {
-                Log.d(TAG, "onMeasureMode AT_MOST")
-                Log.d(
-                    TAG, "onMeasureSize AT_MOST widthSize = $widthSize, " +
-                            "heightSize = $heightSize"
-                )
                 setMeasuredDimension(widthSize, heightSize)
             }
             MeasureSpec.EXACTLY -> {
-                Log.d(TAG, "onMeasureMode EXACTLY")
-                Log.d(
-                    TAG, "onMeasureSize EXACTLY widthSize = $widthSize, " +
-                            "heightSize = $heightSize"
-                )
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             }
         }
 
         if (childCount == 0) return
 
-        var maxHeight = 0
+        measureChildren(widthSize, parentWidthMode, parentHeightMode)
 
+        val heightMode = MeasureSpec.makeMeasureSpec(calculateMaxHeight(), parentHeightMode)
+        val widthMode = MeasureSpec.makeMeasureSpec(calculateMaxWidth(), parentWidthMode)
+        setMeasuredDimension(widthMode, heightMode)
+    }
+
+    private fun calculateMaxHeight(): Int {
+        var maxHeight = 2 * paddingInView + 2 * paddingOutView
         for (i in 0 until childCount) {
-            Log.d(TAG, "MARGINS = ${getChildAt(i).marginTop}")
+            maxHeight += getChildAt(i).measuredHeight
+        }
+        return maxHeight
+    }
+
+    private fun calculateMaxWidth(): Int {
+        var maxWidth = 0
+        for (i in 0 until childCount) {
+            val currentWidth = getChildAt(0).measuredWidth +
+                    getChildAt(0).marginLeft + getChildAt(0).marginRight +
+                    paddingInView
+            maxWidth = max(currentWidth, maxWidth)
+        }
+        return maxWidth
+    }
+
+    private fun measureChildren(widthSize: Int, parentWidthMode: Int, parentHeightMode: Int) {
+        for (i in 0 until childCount) {
             val widthSpec =
                 MeasureSpec.makeMeasureSpec(
                     widthSize - 2 * (paddingInView + paddingOutView),
-                    widthMode
+                    parentWidthMode
                 )
             val heightSpec =
-                MeasureSpec.makeMeasureSpec(0, heightMode)
+                MeasureSpec.makeMeasureSpec(0, parentHeightMode)
 
             measureChild(getChildAt(i), widthSpec, heightSpec)
-            maxHeight += getChildAt(i).measuredHeight
         }
-
-        maxHeight += 2 * paddingInView + 2 * paddingOutView
-        Log.d(TAG, "maxHeight = $maxHeight")
-
-        val mode = MeasureSpec.makeMeasureSpec(maxHeight, heightMode)
-        val widthmode = MeasureSpec.makeMeasureSpec(
-            getChildAt(0).measuredWidth +
-                    getChildAt(0).marginLeft + getChildAt(0).marginRight +
-                    paddingInView, widthMode)
-        setMeasuredDimension(widthmode, mode)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        Log.d(TAG, "onLayout $childCount")
-        Log.d(TAG, "onLayout left = $left, right = $right, top = $top, bottom = $bottom")
         if (childCount == 0) return
 
         val leftPosition = paddingInView
@@ -164,11 +162,10 @@ class CustomCardView(context: Context, attr: AttributeSet) : ViewGroup(context, 
 
     override fun dispatchDraw(canvas: Canvas?) {
         if (canvas == null) return
-        Log.d(TAG, "dispatchDraw height = $height  width = $width")
 
-        val radius = 5.px * 1f
-        val dx = 1.px * 1f
-        val dy = 1.px * 1f
+        val radius = 5.px.toFloat()
+        val dx = 1.px.toFloat()
+        val dy = 1.px.toFloat()
 
         paintShadow.setShadowLayer(radius, dx, dy, Color.BLUE)
 
@@ -176,8 +173,8 @@ class CustomCardView(context: Context, attr: AttributeSet) : ViewGroup(context, 
             RectF(
                 radius + paddingOutView,
                 radius + paddingOutView,
-                (width - 2 * radius) * 1f - paddingOutView,
-                (height - 2 * radius) * 1f - paddingOutView
+                (width - 2 * radius) - paddingOutView,
+                (height - 2 * radius) - paddingOutView
             ), radius, radius, paintShadow
         )
 
