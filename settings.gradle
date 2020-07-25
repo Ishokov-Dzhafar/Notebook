@@ -1,6 +1,6 @@
 rootProject.name='Notebook'
 include ':app'
-include ':core-db-api'
-include ':core-db-impl'
+include ':coreDbApi'
+include ':coreDbImpl'
 include ':core'
 include ':main'

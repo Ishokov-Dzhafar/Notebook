@@ -24,14 +24,21 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
 
-    api project(':coreDbApi')
-    implementation project(':coreDbImpl')
+    implementation project(':coreDbApi')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -40,6 +47,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Room
+    implementation roomDependencies.values()
+    kapt roomKapt
 
     //Dagger2
     implementation dagger

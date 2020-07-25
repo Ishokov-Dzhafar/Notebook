@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dzhafar.core_db_api.di.AppWithFacade
-import com.dzhafar.core_db_api.view_model.ViewModelFactory
+import com.dzhafar.coreDbApi.di.AppWithFacade
+import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.FragmentNoteListBinding
 import com.dzhafar.main.di.MainComponent
@@ -28,7 +28,8 @@ import javax.inject.Inject
  */
 class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: NoteListVM by viewModels { viewModelFactory }
 
@@ -41,11 +42,15 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        MainComponent.create((requireActivity().application as AppWithFacade)
-            .getFacade()).inject(this)
+        MainComponent.create(
+            (requireActivity().application as AppWithFacade)
+                .getFacade()
+        ).inject(this)
         if (binding == null) {
-            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list,
-                container, false)
+            binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_note_list,
+                container, false
+            )
             noteListAdapterRV = NoteListRVAdapter(viewModel)
             val llm = LinearLayoutManager(context)
             binding!!.noteList.layoutManager = llm
@@ -72,10 +77,13 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retainInstance = true
-        viewModel.noteModelList.observe(viewLifecycleOwner, Observer {
-            noteListAdapterRV.setData(it)
-            noteListAdapterRV.notifyDataSetChanged()
-            Log.d("NOTE LIST FRAGMENT", it.isEmpty().toString())
-        })
+        viewModel.noteModelList.observe(
+            viewLifecycleOwner,
+            Observer {
+                noteListAdapterRV.setData(it)
+                noteListAdapterRV.notifyDataSetChanged()
+                Log.d("NOTE LIST FRAGMENT", it.isEmpty().toString())
+            }
+        )
     }
 }

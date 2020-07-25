@@ -77,17 +77,15 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
                     p2: Boolean,
                     p3: Float
                 ) {
+                    TODO("Not yet implemented")
                 }
 
                 override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+                    TODO("Not yet implemented")
                 }
 
-                override fun onTransitionChange(
-                    p0: MotionLayout?,
-                    p1: Int,
-                    p2: Int,
-                    p3: Float
-                ) {
+                override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+                    TODO("Not yet implemented")
                 }
 
                 override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
@@ -121,9 +119,9 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].id == newList[newItemPosition].id &&
-                    oldList[oldItemPosition].date == newList[newItemPosition].date &&
-                    oldList[oldItemPosition].text == newList[newItemPosition].text &&
-                    oldList[oldItemPosition].title == newList[newItemPosition].title
+                oldList[oldItemPosition].date == newList[newItemPosition].date &&
+                oldList[oldItemPosition].text == newList[newItemPosition].text &&
+                oldList[oldItemPosition].title == newList[newItemPosition].title
         }
     }
 }

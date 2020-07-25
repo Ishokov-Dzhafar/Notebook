@@ -1,8 +1,8 @@
 package com.dzhafar.main.data.repository
 
-import com.dzhafar.core_db_api.data.dao.NoteDao
-import com.dzhafar.core_db_api.data.dto.NoteEntity
-import com.dzhafar.core_db_api.di.DBApi
+import com.dzhafar.coreDbApi.data.dao.NoteDao
+import com.dzhafar.coreDbApi.data.dto.NoteEntity
+import com.dzhafar.coreDbApi.di.DBApi
 import com.dzhafar.main.data.expressions.toNoteModel
 import com.dzhafar.main.domain.models.NoteModel
 import kotlinx.coroutines.flow.flowOf
@@ -38,9 +38,24 @@ class NoteModelRepositoryImplTest {
     @Test
     fun `fetch Note list success`() {
         val noteList = listOf(
-            NoteEntity(1, "1111", 11111111111, "111"),
-            NoteEntity(2, "2222", 11111111112, "222"),
-            NoteEntity(3, "3333", 11111111113, "333")
+            NoteEntity(
+                1,
+                "1111",
+                11111111111,
+                "111"
+            ),
+            NoteEntity(
+                2,
+                "2222",
+                11111111112,
+                "222"
+            ),
+            NoteEntity(
+                3,
+                "3333",
+                11111111113,
+                "333"
+            )
         ).toList()
         val noteListMain = noteList.map {
             it.toNoteModel()
@@ -58,7 +73,12 @@ class NoteModelRepositoryImplTest {
 
     @Test
     fun `insert Note`() {
-        val noteEntity = NoteEntity(null, "2222", 1111111111, "222")
+        val noteEntity = NoteEntity(
+            null,
+            "2222",
+            1111111111,
+            "222"
+        )
         Mockito.`when`(db.noteDao()).thenReturn(noteDao)
         runBlocking {
             Mockito.`when`(db.noteDao().insertNote(noteEntity)).thenReturn(1)

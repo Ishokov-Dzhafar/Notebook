@@ -1,7 +1,7 @@
 package com.dzhafar.main.di
 
 import androidx.lifecycle.ViewModel
-import com.dzhafar.core_db_api.view_model.ViewModelKey
+import com.dzhafar.coreDbApi.viewModel.ViewModelKey
 import com.dzhafar.main.presentation.vm.CreateNoteVM
 import com.dzhafar.main.presentation.vm.NoteListVM
 import dagger.Binds

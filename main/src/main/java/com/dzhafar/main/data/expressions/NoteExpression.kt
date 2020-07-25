@@ -1,6 +1,6 @@
 package com.dzhafar.main.data.expressions
 
-import com.dzhafar.core_db_api.data.dto.NoteEntity
+import com.dzhafar.coreDbApi.data.dto.NoteEntity
 import com.dzhafar.main.domain.models.NoteModel
 
 fun NoteEntity.toNoteModel() = NoteModel(

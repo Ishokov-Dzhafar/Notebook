@@ -1,6 +1,6 @@
 package com.dzhafar.main.data.repository
 
-import com.dzhafar.core_db_api.di.DBApi
+import com.dzhafar.coreDbApi.di.DBApi
 import com.dzhafar.main.data.expressions.toNoteEntity
 import com.dzhafar.main.data.expressions.toNoteModel
 import com.dzhafar.main.domain.models.NoteModel
