@@ -1,3 +1,4 @@
+include ':coreCommon'
 rootProject.name='Notebook'
 include ':app'
 include ':coreDbApi'
