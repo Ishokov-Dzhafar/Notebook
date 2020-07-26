@@ -1,4 +1,4 @@
-package com.dzhafar.main.domain.usecase.base
+package com.example.coreCommon.usecase.base
 
 import kotlinx.coroutines.flow.Flow
 

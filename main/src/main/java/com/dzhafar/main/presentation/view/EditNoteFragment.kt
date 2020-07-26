@@ -1,7 +1,6 @@
 package com.dzhafar.main.presentation.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +16,11 @@ import com.dzhafar.main.R
 import com.dzhafar.main.databinding.EditNoteFragmentBinding
 import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.vm.EditNoteViewModel
+import com.example.coreCommon.view.BaseFragment
 import java.util.Date
 import javax.inject.Inject
 
-class EditNoteFragment : Fragment(R.layout.edit_note_fragment) {
+class EditNoteFragment : BaseFragment(R.layout.edit_note_fragment) {
     private val args: EditNoteFragmentArgs by navArgs()
     val viewModel: EditNoteViewModel by viewModels { viewModelFactory }
 
