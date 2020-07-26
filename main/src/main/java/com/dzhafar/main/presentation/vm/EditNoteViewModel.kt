@@ -9,25 +9,19 @@ import com.dzhafar.main.domain.models.NoteModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Date
 import javax.inject.Inject
 
-class CreateNoteVM @Inject constructor(private val noteInteractor: NoteInteractor) : ViewModel() {
+class EditNoteViewModel @Inject constructor(
+    private val noteInteractor: NoteInteractor
+) : ViewModel() {
+    private val updateNoteMLD = MutableLiveData<Unit>()
+    val updateNoteLD: LiveData<Unit> = updateNoteMLD
 
-    private val createNoteMLD = MutableLiveData<Unit>()
-    val createNoteLD: LiveData<Unit> = createNoteMLD
-
-    fun createNote(title: String, text: String) {
-        val note = NoteModel(
-            text = text,
-            date = Date().time,
-            title = title,
-            id = null
-        )
+    fun saveNote(note: NoteModel) {
         viewModelScope.launch {
-            noteInteractor.createNote(note)
+            noteInteractor.updateNote(note)
             withContext(Dispatchers.Main) {
-                createNoteMLD.value = Unit
+                updateNoteMLD.value = Unit
             }
         }
     }

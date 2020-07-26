@@ -3,4 +3,5 @@
 
     <string name="search_title">Search…</string>
     <string name="main_title">Home</string>
+    <string name="title_dynamicfeature">Module Title</string>
 </resources>

@@ -28,4 +28,10 @@ class NoteRepositoryImpl @Inject constructor(private val db: DBApi) :
     override suspend fun deleteNote(noteModel: NoteModel) {
         return db.noteDao().deleteNoteById(noteModel.id!!)
     }
+
+    override suspend fun updateNote(noteModel: NoteModel) {
+        db.noteDao().updateNote(
+            noteModel.toNoteEntity()
+        )
+    }
 }

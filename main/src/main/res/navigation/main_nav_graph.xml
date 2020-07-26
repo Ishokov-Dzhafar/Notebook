@@ -13,6 +13,14 @@
         <action
             android:id="@+id/action_noteListFragment_to_createNoteFragment"
             app:destination="@id/createNoteFragment" />
+        <action
+            android:id="@+id/action_noteListFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment">
+
+            <argument
+                android:name="@string/note_model_arg"
+                app:argType="com.dzhafar.main.domain.models.NoteModel" />
+        </action>
         <!--если нужно сделать переход из Feature module то использовать deepLink
         (Пример: https://medium.com/swlh/using-the-navigation-component-in-a-modular-world-e7578825962)-->
     </fragment>
@@ -20,4 +28,12 @@
         android:id="@+id/createNoteFragment"
         android:name="com.dzhafar.main.presentation.view.CreateNoteFragment"
         android:label="CreateNoteFragment" />
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="com.dzhafar.main.presentation.view.EditNoteFragment"
+        android:label="EditNoteFragment" >
+        <argument
+            android:name="@string/note_model_arg"
+            app:argType="com.dzhafar.main.domain.models.NoteModel" />
+    </fragment>
 </navigation>

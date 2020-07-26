@@ -19,4 +19,8 @@ class NoteInteractorImpl @Inject constructor(private val noteRepository: NoteRep
     override suspend fun deleteNote(noteModel: NoteModel) {
         return noteRepository.deleteNote(noteModel)
     }
+
+    override suspend fun updateNote(noteModel: NoteModel) {
+        noteRepository.updateNote(noteModel)
+    }
 }

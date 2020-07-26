@@ -8,4 +8,5 @@
     <string name="title_note">Title</string>
     <string name="text_body">Text body</string>
     <string name="delete">Delete</string>
+    <string name="note_model_arg">NoteModelArg</string>
 </resources>

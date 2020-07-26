@@ -1,5 +1,4 @@
 ext {
-    navigationVersion = '2.3.0-alpha06'
     coroutinesVersion = '1.3.5'
     retrofitVersion = '2.8.1'
     okhttpVersion = '4.5.0'

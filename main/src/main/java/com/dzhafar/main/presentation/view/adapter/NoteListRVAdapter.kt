@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.NoteListItemBinding
 import com.dzhafar.main.domain.models.NoteModel
-import com.dzhafar.main.presentation.vm.NoteListVM
 
-class NoteListRVAdapter(private val viewModel: NoteListVM) :
-    RecyclerView.Adapter<NoteListRVAdapter.NoteListItemVH>() {
+class NoteListRVAdapter(
+    private val clickItemCallback: (item: NoteModel) -> Unit,
+    private val deleteItem: (item: NoteModel) -> Unit
+) : RecyclerView.Adapter<NoteListRVAdapter.NoteListItemVH>() {
     companion object {
         val TAG = this::class.java.simpleName
     }
@@ -36,7 +37,7 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
             layoutInflater,
             R.layout.note_list_item, parent, false
         )
-        return NoteListItemVH(binding, viewModel)
+        return NoteListItemVH(binding, clickItemCallback, deleteItem)
     }
 
     override fun getItemCount(): Int {
@@ -66,8 +67,11 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
         holder.itemView.clearAnimation()
     }
 
-    class NoteListItemVH(val binding: NoteListItemBinding, private val viewModel: NoteListVM) :
-        RecyclerView.ViewHolder(binding.root) {
+    class NoteListItemVH(
+        val binding: NoteListItemBinding,
+        private val clickItemCallback: (item: NoteModel) -> Unit,
+        private val deleteItemCallback: (item: NoteModel) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NoteModel) {
             binding.note = item
             binding.motionContainer.setTransitionListener(object : MotionLayout.TransitionListener {
@@ -90,9 +94,12 @@ class NoteListRVAdapter(private val viewModel: NoteListVM) :
 
                 override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
                     Log.d(TAG, "${currentId == R.id.deleted_set}")
-                    if (currentId == R.id.deleted_set) viewModel.deleteNote(item)
+                    if (currentId == R.id.deleted_set) deleteItemCallback(item)
                 }
             })
+            binding.root.setOnClickListener {
+                clickItemCallback(item)
+            }
             binding.deleteBtn.setOnClickListener {
                 binding.motionContainer.setTransition(R.id.ending_set, R.id.deleted_set)
                 binding.motionContainer.transitionToEnd()

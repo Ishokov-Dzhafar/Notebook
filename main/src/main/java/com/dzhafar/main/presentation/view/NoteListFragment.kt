@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dzhafar.coreDbApi.di.AppWithFacade
@@ -48,10 +49,23 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
         ).inject(this)
         if (binding == null) {
             binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_note_list,
-                container, false
+                inflater,
+                R.layout.fragment_note_list,
+                container,
+                false
             )
-            noteListAdapterRV = NoteListRVAdapter(viewModel)
+            noteListAdapterRV = NoteListRVAdapter(
+                clickItemCallback = {
+                    val args = EditNoteFragmentArgs(it)
+                    findNavController().navigate(
+                        R.id.action_noteListFragment_to_editNoteFragment,
+                        args.toBundle()
+                    )
+                },
+                deleteItem = {
+                    viewModel.deleteNote(it)
+                }
+            )
             val llm = LinearLayoutManager(context)
             binding!!.noteList.layoutManager = llm
             binding!!.noteList.adapter = noteListAdapterRV
