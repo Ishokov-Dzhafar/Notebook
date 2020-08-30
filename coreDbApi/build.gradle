@@ -30,6 +30,8 @@ android {
 apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
+    api project(':navigationApi')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

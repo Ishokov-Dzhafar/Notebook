@@ -32,7 +32,9 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 dependencies {
 
     api project(':coreDbApi')
+    api project(':navigationApi')
     implementation project(':coreDbImpl')
+    implementation project(':navigation')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

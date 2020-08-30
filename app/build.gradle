@@ -44,6 +44,8 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 dependencies {
     implementation project(':core')
     implementation project(':main')
+    implementation project(':calendar')
+    implementation project(':navigation')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -86,5 +88,6 @@ dependencies {
     implementation dagger
     kapt daggerKapt
 
+    implementation constraintLayout
 
 }

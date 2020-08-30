@@ -1,5 +1,6 @@
 package com.dzhafar.main.presentation.view
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.dzhafar.main.databinding.FragmentNoteListBinding
 import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.view.adapter.NoteListRVAdapter
 import com.dzhafar.main.presentation.vm.NoteListVM
+import com.example.navigationapi.navigation.calendar.NavigateToCalendarMediator
 import javax.inject.Inject
 
 /**
@@ -31,6 +33,9 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var navigateToCalendar: NavigateToCalendarMediator
 
     private val viewModel: NoteListVM by viewModels { viewModelFactory }
 
@@ -76,9 +81,9 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
             toolbarView.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.addNote -> {
-                        findNavController()
-                            .navigate(R.id.action_noteListFragment_to_createNoteFragment)
-                        Log.d("NOTE LIST FRAGMENT", "ADD NOTE")
+                        /*findNavController()
+                            .navigate(R.id.action_noteListFragment_to_createNoteFragment)*/
+                        navigateToCalendar.navigate(this)
                         true
                     }
                     else -> false

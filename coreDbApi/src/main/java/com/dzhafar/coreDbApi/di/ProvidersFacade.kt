@@ -1,3 +1,5 @@
 package com.dzhafar.coreDbApi.di
 
-interface ProvidersFacade : AppProvider, DatabaseProvider
+import com.example.navigationapi.navigation.NavigationProvider
+
+interface ProvidersFacade : AppProvider, DatabaseProvider, NavigationProvider

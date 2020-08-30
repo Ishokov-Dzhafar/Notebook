@@ -6,9 +6,10 @@ import com.dzhafar.coreDbApi.di.AppProvider
 import com.dzhafar.coreDbApi.di.DatabaseProvider
 import com.dzhafar.coreDbApi.di.ProvidersFacade
 import com.dzhafar.notebook.MainApplication
+import com.example.navigationapi.navigation.NavigationProvider
 import dagger.Component
 
-@Component(dependencies = [AppProvider::class, DatabaseProvider::class])
+@Component(dependencies = [AppProvider::class, DatabaseProvider::class, NavigationProvider::class])
 interface FacadeComponent : ProvidersFacade {
     companion object {
 
@@ -19,6 +20,8 @@ interface FacadeComponent : ProvidersFacade {
                     CoreProviderFactory
                         .createDatabaseBuilder(AppComponent.create(application))
                 )
+                .navigationProvider(CoreProviderFactory.createNavigation(AppComponent.create(application)))
+                //navigationProvider(CoreProviderFactory.createNavigationComponent())
                 .build()
     }
 

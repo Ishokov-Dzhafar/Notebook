@@ -45,6 +45,7 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
     implementation project(':coreDbApi')
+    implementation project(':navigationApi')
     implementation project(':coreCommon')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
