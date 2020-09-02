@@ -9,8 +9,8 @@ import javax.inject.Inject
 class CalendarInteractorImpl @Inject constructor(
     private val getCalendarItemsUseCase: GetCalendarItemsUseCase
 ) : CalendarInteractor {
-    override fun getCalendar(date: Date): Flow<List<CalendarItem>> {
-        return getCalendarItemsUseCase.execute(GetCalendarItemsUseCase.Params(date))
+    override fun getCalendar(currentDate: Date, visibleDate: Date): Flow<List<CalendarItem>> {
+        return getCalendarItemsUseCase.execute(GetCalendarItemsUseCase.Params(currentDate, visibleDate))
     }
 
 }

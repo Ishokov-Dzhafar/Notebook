@@ -38,7 +38,7 @@ class GetCalendarItemsUseCase @Inject constructor(
 
     override fun execute(params: Params): Flow<List<CalendarItem>> {
         return flow {
-            val date = getFirstDayOfMonth(params.currentDate)
+            val date = getFirstDayOfMonth(params.visibleDate)
             emit(date)
         }.flatMapConcat { date ->
             getDayOfWeekFromDateUseCase.execute(GetDayOfWeekFromDateUseCase.Params(date))
@@ -46,12 +46,12 @@ class GetCalendarItemsUseCase @Inject constructor(
             val currentDay = Calendar.getInstance()
                 .apply { time = params.currentDate }
                 .get(Calendar.DAY_OF_MONTH)
-            val calendar = Calendar.getInstance().apply { time = params.currentDate }
+            val calendar = Calendar.getInstance().apply { time = params.visibleDate }
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val months = getCountOfDayInMonths(year)
             val countFromMondayToCurrent = countFromMondayTo(dayOfWeek)
-            val finishDateDayOfWeek = ((dayOfWeek.id + months[month]!! - 1) % 7).let {id ->
+            val finishDateDayOfWeek = ((dayOfWeek.id + months[month]!! - 1) % 7).let { id ->
                 EnumDayOfWeek.values().find { it.id == id }!!
             }
             val countToMondayFromCurrent = countToMondayFrom(finishDateDayOfWeek)
@@ -61,7 +61,7 @@ class GetCalendarItemsUseCase @Inject constructor(
                 if (month == januaryIndex) months[decemberIndex]!! else months[month - 1]!!
 
             if (countFromMondayToCurrent != 0) {
-                for (i in countFromMondayToCurrent downTo 1)
+                for (i in countFromMondayToCurrent - 1 downTo 0)
                     calendarItems.add(DisableCalendarItem(listOf(), countPreviousMonth - i))
             }
 
@@ -79,52 +79,11 @@ class GetCalendarItemsUseCase @Inject constructor(
             }
 
             if (calendarItems.size < visibleDaysCount) {
-                for (i in countToMondayFromCurrent + 1..countToMondayFromCurrent + countOfDaysInWeek + 1)
+                for (i in countToMondayFromCurrent + 1..countToMondayFromCurrent + countOfDaysInWeek)
                     calendarItems.add(DisableCalendarItem(listOf(), i))
             }
             calendarItems
         }
-
-
-        /*
-        return flow {
-
-            val dayOfWeek =
-                getDayOfWeekFromDateUseCase.execute(GetDayOfWeekFromDateUseCase.Params(date))
-            val calendar = Calendar.getInstance().apply { time = date }
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val months = getCountOfDayInMonths(year)
-            val countFromMondayToCurrent = countFromMondayTo(dayOfWeek)
-            val countToMondayFromCurrent = countToMondayFrom(dayOfWeek)
-            val calendarItems = mutableListOf<CalendarItem>()
-            val countCurrentMonth = months[month]!!
-            val countPreviousMonth = if (month == januaryIndex) months[decemberIndex]!! else months[month - 1]!!
-
-            if (countFromMondayToCurrent != 0) {
-                for (i in countFromMondayToCurrent..1)
-                    calendarItems.add(DisableCalendarItem(listOf(), countPreviousMonth - i))
-            }
-
-            for (i in 1..countCurrentMonth)
-                calendarItems.add(
-                    if (i == currentDay) EnableCalendarItem(
-                        listOf(),
-                        i
-                    ) else ActiveCalendarItem(listOf(), i)
-                )
-
-            if (countToMondayFromCurrent != 0) {
-                for (i in 1..countToMondayFromCurrent)
-                    calendarItems.add(DisableCalendarItem(listOf(), i))
-            }
-
-            if (calendarItems.size < visibleDaysCount) {
-                for (i in countToMondayFromCurrent + 1..countToMondayFromCurrent + countOfDaysInWeek + 1)
-                    calendarItems.add(DisableCalendarItem(listOf(), i))
-            }
-            emit(calendarItems)
-        }*/
     }
 
     private fun getFirstDayOfMonth(date: Date): Date {
@@ -181,5 +140,5 @@ class GetCalendarItemsUseCase @Inject constructor(
             SATURDAY -> 1
         }
 
-    data class Params(val currentDate: Date)
+    data class Params(val currentDate: Date, val visibleDate: Date)
 }

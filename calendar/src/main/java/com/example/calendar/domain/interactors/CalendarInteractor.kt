@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
 interface CalendarInteractor {
-    fun getCalendar(date: Date): Flow<List<CalendarItem>>
+    fun getCalendar(currentDate: Date, visibleDate: Date): Flow<List<CalendarItem>>
 }
