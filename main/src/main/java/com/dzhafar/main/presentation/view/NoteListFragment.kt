@@ -1,6 +1,5 @@
 package com.dzhafar.main.presentation.view
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dzhafar.coreDbApi.di.AppWithFacade
@@ -21,7 +19,7 @@ import com.dzhafar.main.databinding.FragmentNoteListBinding
 import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.view.adapter.NoteListRVAdapter
 import com.dzhafar.main.presentation.vm.NoteListVM
-import com.example.navigationapi.navigation.calendar.NavigateToCalendarMediator
+import com.dzhafar.navigationapi.navigation.calendar.NavigateToCalendarMediator
 import javax.inject.Inject
 
 /**

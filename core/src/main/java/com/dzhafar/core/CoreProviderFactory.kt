@@ -3,8 +3,8 @@ package com.dzhafar.core
 import com.dzhafar.coreDbApi.di.AppProvider
 import com.dzhafar.coreDbApi.di.DatabaseProvider
 import com.dzhafar.coreDbImpl.di.DaggerCoreDbComponent
-import com.example.navigation.DaggerNavigationComponent
-import com.example.navigationapi.navigation.NavigationProvider
+import com.dzhafar.navigation.DaggerNavigationComponent
+import com.dzhafar.navigationapi.navigation.NavigationProvider
 
 object CoreProviderFactory {
     fun createDatabaseBuilder(appProvider: AppProvider): DatabaseProvider {

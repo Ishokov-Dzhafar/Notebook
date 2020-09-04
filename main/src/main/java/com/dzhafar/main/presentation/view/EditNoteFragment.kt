@@ -16,7 +16,7 @@ import com.dzhafar.main.R
 import com.dzhafar.main.databinding.EditNoteFragmentBinding
 import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.vm.EditNoteViewModel
-import com.example.coreCommon.view.BaseFragment
+import com.dzhafar.coreCommon.view.BaseFragment
 import java.util.Date
 import javax.inject.Inject
 

@@ -5,10 +5,10 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.calendar.presentation.view.CalendarFragment"
+        android:name="com.dzhafar.calendar.presentation.view.CalendarFragment"
         android:label="CalendarFragment" >
 
-        <deepLink app:uri="Notebook://calendar/grid"/>
+        <deepLink app:uri="@string/navigate_to_calendar_deeplink"/>
     </fragment>
 
 </navigation>
