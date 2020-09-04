@@ -1,16 +1,16 @@
 package com.dzhafar.calendar.domain.enums
 
 enum class EnumMonths(val id: Int) {
-    JANUARY(0),
-    FEBRUARY(1),
-    MARCH(2),
-    APRIL(3),
-    MAY(4),
-    JUNE(5),
-    JULY(6),
-    AUGUST(7),
-    SEPTEMBER(8),
-    OCTOBER(9),
-    NOVEMBER(10),
-    DECEMBER(11)
+    JANUARY(id = 0),
+    FEBRUARY(id = 1),
+    MARCH(id = 2),
+    APRIL(id = 3),
+    MAY(id = 4),
+    JUNE(id = 5),
+    JULY(id = 6),
+    AUGUST(id = 7),
+    SEPTEMBER(id = 8),
+    OCTOBER(id = 9),
+    NOVEMBER(id = 10),
+    DECEMBER(id = 11)
 }

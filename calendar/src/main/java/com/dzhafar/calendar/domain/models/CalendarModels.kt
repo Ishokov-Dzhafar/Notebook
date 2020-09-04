@@ -10,12 +10,10 @@ data class ActiveCalendarItem(
     override val number: Int
 ) : CalendarItem(notesTitle, number)
 
-
 data class DisableCalendarItem(
     override val notesTitle: List<String>,
     override val number: Int
 ) : CalendarItem(notesTitle, number)
-
 
 data class EnableCalendarItem(
     override val notesTitle: List<String>,

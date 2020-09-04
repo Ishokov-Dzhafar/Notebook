@@ -13,6 +13,7 @@ import com.dzhafar.calendar.domain.models.CalendarItem
 import com.dzhafar.calendar.domain.models.DisableCalendarItem
 import com.dzhafar.calendar.domain.models.EnableCalendarItem
 import com.dzhafar.coreCommon.usecase.base.FlowUseCase
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
@@ -32,13 +33,14 @@ class GetCalendarItemsUseCase @Inject constructor(
         private const val countOfDaysInWeek = 7
     }
 
+    @FlowPreview
     override fun execute(params: Params): Flow<List<CalendarItem>> {
         return flow {
             val date = getFirstDayOfMonth(params.visibleDate)
             emit(date)
         }.flatMapConcat { date ->
             getDayOfWeekFromDateUseCase.execute(GetDayOfWeekFromDateUseCase.Params(date))
-        }.map {dayOfWeek ->
+        }.map { dayOfWeek ->
             val currentDay = Calendar.getInstance()
                 .apply { time = params.currentDate }
                 .get(Calendar.DAY_OF_MONTH)
@@ -47,7 +49,7 @@ class GetCalendarItemsUseCase @Inject constructor(
             val month = calendar.get(Calendar.MONTH)
             val months = getCountOfDayInMonths(year)
             val countFromMondayToCurrent = countFromMondayTo(dayOfWeek)
-            val finishDateDayOfWeek = ((dayOfWeek.id + months[month]!! - 1) % 7).let { id ->
+            val finishDateDayOfWeek = ((dayOfWeek.id + months[month]!! - 1) % countOfDaysInWeek).let { id ->
                 EnumDayOfWeek.values().find { it.id == id }!!
             }
             val countToMondayFromCurrent = countToMondayFrom(finishDateDayOfWeek)
@@ -75,8 +77,8 @@ class GetCalendarItemsUseCase @Inject constructor(
             }
 
             if (calendarItems.size < visibleDaysCount) {
-                for (i in countToMondayFromCurrent + 1..countToMondayFromCurrent + countOfDaysInWeek)
-                    calendarItems.add(DisableCalendarItem(listOf(), i))
+                for (i in 1..visibleDaysCount - calendarItems.size)
+                    calendarItems.add(DisableCalendarItem(listOf(), countToMondayFromCurrent + i))
             }
             calendarItems
         }

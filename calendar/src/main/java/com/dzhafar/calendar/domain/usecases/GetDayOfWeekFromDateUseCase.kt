@@ -64,6 +64,5 @@ class GetDayOfWeekFromDateUseCase @Inject constructor() :
         return yearHashMap[yearCoeff / 100]!!
     }
 
-
     data class Params(val currentDate: Date)
 }

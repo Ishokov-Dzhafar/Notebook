@@ -22,10 +22,15 @@ class CalendarAdapter(private val context: Context) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val itemView: View
         val calendarItem = calendarItems[position]
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        itemView = inflater.inflate(R.layout.calendar_active_item, null)
-        itemView.number.text = calendarItem.number.toString()
-        return itemView
+        return if (convertView == null) {
+            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            itemView = inflater.inflate(R.layout.calendar_active_item, parent, false)
+            itemView.number.text = calendarItem.number.toString()
+            itemView
+        } else {
+            convertView.number.text = calendarItem.number.toString()
+            convertView
+        }
     }
 
     override fun getItem(position: Int): CalendarItem = calendarItems[position]
@@ -34,5 +39,4 @@ class CalendarAdapter(private val context: Context) : BaseAdapter() {
         calendarItems.hashCode().toLong()
 
     override fun getCount(): Int = calendarItems.size
-
 }

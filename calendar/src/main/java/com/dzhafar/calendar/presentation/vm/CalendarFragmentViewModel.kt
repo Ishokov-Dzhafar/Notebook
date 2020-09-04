@@ -16,6 +16,9 @@ class CalendarFragmentViewModel @Inject constructor(
     private val calendarInteractor: CalendarInteractor
 ) : ViewModel() {
 
+    companion object {
+        private const val countOfMonth = 12
+    }
     private val _calendarItems = MutableLiveData<List<CalendarItem>>()
     val calendarItems: LiveData<List<CalendarItem>> get() = _calendarItems
     private val currentDate = Calendar.getInstance()
@@ -33,7 +36,7 @@ class CalendarFragmentViewModel @Inject constructor(
 
     fun nextMonth() {
         val nextMonth = visibleDate.get(Calendar.MONTH) + 1
-        if (nextMonth == 12) {
+        if (nextMonth == countOfMonth) {
             visibleDate.set(Calendar.MONTH, 0)
             visibleDate.set(Calendar.YEAR, visibleDate.get(Calendar.YEAR) + 1)
         } else {
@@ -62,7 +65,7 @@ class CalendarFragmentViewModel @Inject constructor(
     fun previousMonth() {
         val previousMonth = visibleDate.get(Calendar.MONTH) - 1
         if (previousMonth == -1) {
-            visibleDate.set(Calendar.MONTH, 11)
+            visibleDate.set(Calendar.MONTH, countOfMonth - 1)
             visibleDate.set(Calendar.YEAR, visibleDate.get(Calendar.YEAR) - 1)
         } else {
             visibleDate.set(Calendar.MONTH, previousMonth)

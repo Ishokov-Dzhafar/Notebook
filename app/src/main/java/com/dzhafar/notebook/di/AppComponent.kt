@@ -3,7 +3,6 @@ package com.dzhafar.notebook.di
 import android.app.Application
 import android.content.Context
 import com.dzhafar.coreDbApi.di.AppProvider
-import com.dzhafar.notebook.R
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -18,7 +17,6 @@ interface AppComponent : AppProvider {
             return appComponent ?: DaggerAppComponent
                 .builder()
                 .context(application.applicationContext)
-                //.hostViewId(R.id.nav_host_fragment)
                 .build().also {
                     appComponent = it
                 }
@@ -30,8 +28,6 @@ interface AppComponent : AppProvider {
 
         @BindsInstance
         fun context(context: Context): Builder
-        /*@BindsInstance
-        fun hostViewId(hostViewId: Int): Builder*/
         fun build(): AppComponent
     }
 }
