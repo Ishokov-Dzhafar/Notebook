@@ -9,7 +9,7 @@
             type="com.dzhafar.main.domain.models.NoteModel" />
 
         <import
-            type="com.dzhafar.coreDbApi.UtilsKt" />
+            type="com.dzhafar.coreCommon.UtilsKt" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout

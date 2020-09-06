@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.dzhafar.coreCommon.view.BaseFragment
+import com.dzhafar.coreCommon.hideKeyboard
 import com.dzhafar.coreDbApi.di.AppWithFacade
-import com.dzhafar.coreDbApi.hideKeyboard
 import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.FragmentCreateNoteBinding

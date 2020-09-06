@@ -1,4 +1,4 @@
-package com.dzhafar.coreDbApi
+package com.dzhafar.coreCommon
 
 import android.app.Activity
 import android.content.Context

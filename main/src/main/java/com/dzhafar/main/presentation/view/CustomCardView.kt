@@ -15,7 +15,7 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
-import com.dzhafar.coreDbApi.px
+import com.dzhafar.coreCommon.px
 import com.dzhafar.main.R
 import kotlin.math.max
 import kotlin.math.min
