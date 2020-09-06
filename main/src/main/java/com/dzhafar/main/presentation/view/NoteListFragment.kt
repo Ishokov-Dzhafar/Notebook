@@ -13,8 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dzhafar.coreCommon.view.BaseFragment
-import com.dzhafar.coreDbApi.di.AppWithFacade
-import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
+import com.dzhafar.coreApi.di.AppWithFacade
+import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.FragmentNoteListBinding
 import com.dzhafar.main.di.MainComponent
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class NoteListFragment : BaseFragment(R.layout.fragment_note_list) {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: com.dzhafar.coreApi.viewModel.ViewModelFactory
 
     @Inject
     lateinit var navigateToCalendar: NavigateToCalendarMediator
@@ -45,7 +45,7 @@ class NoteListFragment : BaseFragment(R.layout.fragment_note_list) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         MainComponent.create(
-            (requireActivity().application as AppWithFacade)
+            (requireActivity().application as com.dzhafar.coreApi.di.AppWithFacade)
                 .getFacade()
         ).inject(this)
     }
@@ -79,7 +79,6 @@ class NoteListFragment : BaseFragment(R.layout.fragment_note_list) {
             binding!!.noteList.adapter = noteListAdapterRV
             setHasOptionsMenu(true)
             val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
-            toolbarView.title = resources.getString(R.string.main_title)
             toolbarView.inflateMenu(R.menu.note_list_menu)
             toolbarView.setOnMenuItemClickListener {
                 when (it.itemId) {

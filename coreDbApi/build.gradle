@@ -48,8 +48,6 @@ dependencies {
     // Coroutines
     implementation coroutineDependencies.values()
 
-    // Navigation
-    implementation navigationDependencies.values()
 
     implementation dagger
     kapt daggerKapt

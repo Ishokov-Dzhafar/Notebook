@@ -39,6 +39,7 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
 
+    implementation project(':coreApi')
     implementation project(':coreDbApi')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

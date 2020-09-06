@@ -1,4 +1,4 @@
-package com.dzhafar.coreDbApi.data.dto
+package com.dzhafar.coreDbApi.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

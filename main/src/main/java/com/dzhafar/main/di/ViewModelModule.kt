@@ -1,7 +1,7 @@
 package com.dzhafar.main.di
 
 import androidx.lifecycle.ViewModel
-import com.dzhafar.coreDbApi.viewModel.ViewModelKey
+import com.dzhafar.coreApi.viewModel.ViewModelKey
 import com.dzhafar.main.presentation.vm.CreateNoteVM
 import com.dzhafar.main.presentation.vm.EditNoteViewModel
 import com.dzhafar.main.presentation.vm.NoteListVM

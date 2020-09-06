@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.coreCommon.hideKeyboard
-import com.dzhafar.coreDbApi.di.AppWithFacade
-import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
+import com.dzhafar.coreApi.di.AppWithFacade
+import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.FragmentCreateNoteBinding
 import com.dzhafar.main.di.MainComponent
@@ -23,7 +23,7 @@ class CreateNoteFragment : BaseFragment(R.layout.fragment_create_note) {
     val viewModel: CreateNoteVM by viewModels { viewModelFactory }
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: com.dzhafar.coreApi.viewModel.ViewModelFactory
 
     var binding: FragmentCreateNoteBinding? = null
 
@@ -39,7 +39,6 @@ class CreateNoteFragment : BaseFragment(R.layout.fragment_create_note) {
             )
             val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
             setHasOptionsMenu(true)
-            toolbarView.title = resources.getString(R.string.main_title)
             toolbarView.inflateMenu(R.menu.create_note_menu)
             toolbarView.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -67,7 +66,7 @@ class CreateNoteFragment : BaseFragment(R.layout.fragment_create_note) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainComponent.create((requireActivity().application as AppWithFacade).getFacade())
+        MainComponent.create((requireActivity().application as com.dzhafar.coreApi.di.AppWithFacade).getFacade())
             .inject(this)
     }
 }

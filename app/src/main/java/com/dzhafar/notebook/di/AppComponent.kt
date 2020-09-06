@@ -2,7 +2,7 @@ package com.dzhafar.notebook.di
 
 import android.app.Application
 import android.content.Context
-import com.dzhafar.coreDbApi.di.AppProvider
+import com.dzhafar.coreApi.di.AppProvider
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

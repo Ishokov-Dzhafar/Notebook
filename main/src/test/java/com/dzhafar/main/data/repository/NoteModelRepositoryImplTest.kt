@@ -1,7 +1,7 @@
 package com.dzhafar.main.data.repository
 
 import com.dzhafar.coreDbApi.data.dao.NoteDao
-import com.dzhafar.coreDbApi.data.dto.NoteEntity
+import com.dzhafar.coreDbApi.data.entity.NoteEntity
 import com.dzhafar.coreDbApi.di.DBApi
 import com.dzhafar.main.data.expressions.toNoteModel
 import com.dzhafar.main.domain.models.NoteModel

@@ -1,3 +1,4 @@
+include ':coreApi'
 include ':navigationApi'
 include ':navigation'
 include ':calendar'

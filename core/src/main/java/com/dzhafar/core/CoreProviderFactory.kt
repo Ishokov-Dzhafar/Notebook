@@ -1,6 +1,6 @@
 package com.dzhafar.core
 
-import com.dzhafar.coreDbApi.di.AppProvider
+import com.dzhafar.coreApi.di.AppProvider
 import com.dzhafar.coreDbApi.di.DatabaseProvider
 import com.dzhafar.coreDbImpl.di.DaggerCoreDbComponent
 import com.dzhafar.navigation.DaggerNavigationComponent

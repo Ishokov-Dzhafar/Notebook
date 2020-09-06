@@ -2,9 +2,9 @@ package com.dzhafar.notebook.di
 
 import android.app.Application
 import com.dzhafar.core.CoreProviderFactory
-import com.dzhafar.coreDbApi.di.AppProvider
+import com.dzhafar.coreApi.di.AppProvider
 import com.dzhafar.coreDbApi.di.DatabaseProvider
-import com.dzhafar.coreDbApi.di.ProvidersFacade
+import com.dzhafar.coreApi.di.ProvidersFacade
 import com.dzhafar.notebook.MainApplication
 import com.dzhafar.navigationapi.navigation.NavigationProvider
 import dagger.Component

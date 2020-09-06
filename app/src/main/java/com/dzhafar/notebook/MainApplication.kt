@@ -1,8 +1,8 @@
 package com.dzhafar.notebook
 
 import android.app.Application
-import com.dzhafar.coreDbApi.di.AppWithFacade
-import com.dzhafar.coreDbApi.di.ProvidersFacade
+import com.dzhafar.coreApi.di.AppWithFacade
+import com.dzhafar.coreApi.di.ProvidersFacade
 import com.dzhafar.notebook.di.FacadeComponent
 
 class MainApplication : Application(), AppWithFacade {

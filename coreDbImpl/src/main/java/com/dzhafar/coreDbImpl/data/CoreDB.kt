@@ -2,7 +2,7 @@ package com.dzhafar.coreDbImpl.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.dzhafar.coreDbApi.data.dto.NoteEntity
+import com.dzhafar.coreDbApi.data.entity.NoteEntity
 import com.dzhafar.coreDbApi.di.DBApi
 import javax.inject.Singleton
 

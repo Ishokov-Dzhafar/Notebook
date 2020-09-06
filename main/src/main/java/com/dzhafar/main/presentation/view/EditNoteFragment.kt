@@ -1,5 +1,6 @@
 package com.dzhafar.main.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.dzhafar.coreDbApi.di.AppWithFacade
-import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
+import com.dzhafar.coreApi.di.AppWithFacade
+import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.main.R
 import com.dzhafar.main.databinding.EditNoteFragmentBinding
 import com.dzhafar.main.di.MainComponent
@@ -29,13 +30,17 @@ class EditNoteFragment : BaseFragment(R.layout.edit_note_fragment) {
 
     var binding: EditNoteFragmentBinding? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        MainComponent.create((requireActivity().application as AppWithFacade).getFacade())
+            .inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        MainComponent.create((requireActivity().application as AppWithFacade).getFacade())
-            .inject(this)
         if (binding == null) {
             binding = DataBindingUtil.inflate(
                 inflater,
@@ -43,9 +48,11 @@ class EditNoteFragment : BaseFragment(R.layout.edit_note_fragment) {
                 container,
                 false
             )
+            val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
             retainInstance = true
             initView()
             initObservables()
+            initToolbar(toolbarView)
         }
         return binding!!.root
     }
@@ -56,7 +63,6 @@ class EditNoteFragment : BaseFragment(R.layout.edit_note_fragment) {
         binding!!.noteTitle.setText(noteModel.title)
         binding!!.noteText.setText(noteModel.text)
         val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
-        toolbarView.title = resources.getString(R.string.main_title)
         toolbarView.inflateMenu(R.menu.create_note_menu)
         toolbarView.setOnMenuItemClickListener {
             when (it.itemId) {

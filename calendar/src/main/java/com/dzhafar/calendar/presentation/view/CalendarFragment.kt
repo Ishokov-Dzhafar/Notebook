@@ -9,8 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import com.dzhafar.coreDbApi.di.AppWithFacade
-import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
+import com.dzhafar.coreApi.di.AppWithFacade
+import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.calendar.R
 import com.dzhafar.calendar.databinding.CalendarFragmentBinding
 import com.dzhafar.calendar.di.CalendarComponent
@@ -28,7 +28,7 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
     val viewModel: CalendarFragmentViewModel by viewModels { viewModelFactory }
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: com.dzhafar.coreApi.viewModel.ViewModelFactory
 
     private lateinit var calendarAdapter: CalendarAdapter
 
@@ -36,7 +36,7 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        CalendarComponent.create((requireActivity().application as AppWithFacade).getFacade())
+        CalendarComponent.create((requireActivity().application as com.dzhafar.coreApi.di.AppWithFacade).getFacade())
             .inject(this)
     }
 

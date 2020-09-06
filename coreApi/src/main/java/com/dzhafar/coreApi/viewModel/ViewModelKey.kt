@@ -1,4 +1,4 @@
-package com.dzhafar.coreDbApi.viewModel
+package com.dzhafar.coreApi.viewModel
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

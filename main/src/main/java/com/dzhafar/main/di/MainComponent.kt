@@ -1,6 +1,6 @@
 package com.dzhafar.main.di
 
-import com.dzhafar.coreDbApi.di.ProvidersFacade
+import com.dzhafar.coreApi.di.ProvidersFacade
 import com.dzhafar.main.presentation.view.CreateNoteFragment
 import com.dzhafar.main.presentation.view.EditNoteFragment
 import com.dzhafar.main.presentation.view.NoteListFragment
@@ -9,14 +9,14 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [ProvidersFacade::class],
+    dependencies = [com.dzhafar.coreApi.di.ProvidersFacade::class],
     modules = [InteractorsModule::class, RepositoryModule::class, ViewModelModule::class]
 )
 interface MainComponent {
 
     companion object {
 
-        fun create(providersFacade: ProvidersFacade): MainComponent {
+        fun create(providersFacade: com.dzhafar.coreApi.di.ProvidersFacade): MainComponent {
             return DaggerMainComponent.builder()
                 .providersFacade(providersFacade)
                 .build()

@@ -1,19 +1,19 @@
 package com.dzhafar.calendar.di
 
-import com.dzhafar.coreDbApi.di.ProvidersFacade
+import com.dzhafar.coreApi.di.ProvidersFacade
 import com.dzhafar.calendar.presentation.view.CalendarFragment
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [ProvidersFacade::class], modules = [ViewModelModule::class, InteractorsModule::class]
+    dependencies = [com.dzhafar.coreApi.di.ProvidersFacade::class], modules = [ViewModelModule::class, InteractorsModule::class]
 )
 interface CalendarComponent {
 
     companion object {
 
-        fun create(providersFacade: ProvidersFacade): CalendarComponent {
+        fun create(providersFacade: com.dzhafar.coreApi.di.ProvidersFacade): CalendarComponent {
             return DaggerCalendarComponent.builder()
                 .providersFacade(providersFacade)
                 .build()
