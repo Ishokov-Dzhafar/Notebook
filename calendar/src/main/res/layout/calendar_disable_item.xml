@@ -17,7 +17,7 @@
             android:id="@+id/number"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/active"
+            android:textColor="@color/disable"
             android:text="12"
             />
         <LinearLayout

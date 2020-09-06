@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.dzhafar.calendar.R
+import com.dzhafar.calendar.domain.models.ActiveCalendarItem
 import com.dzhafar.calendar.domain.models.CalendarItem
+import com.dzhafar.calendar.domain.models.DisableCalendarItem
+import com.dzhafar.calendar.domain.models.EnableCalendarItem
 import kotlinx.android.synthetic.main.calendar_active_item.view.number
 
 class CalendarAdapter(private val context: Context) : BaseAdapter() {
@@ -24,7 +27,11 @@ class CalendarAdapter(private val context: Context) : BaseAdapter() {
         val calendarItem = calendarItems[position]
         return if (convertView == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            itemView = inflater.inflate(R.layout.calendar_active_item, parent, false)
+            itemView = when(calendarItem) {
+                is ActiveCalendarItem -> inflater.inflate(R.layout.calendar_active_item, parent, false)
+                is DisableCalendarItem -> inflater.inflate(R.layout.calendar_disable_item, parent, false)
+                is EnableCalendarItem -> inflater.inflate(R.layout.calendar_enable_item, parent, false)
+            }
             itemView.number.text = calendarItem.number.toString()
             itemView
         } else {
