@@ -61,6 +61,7 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
             binding!!.root.previousMonthBtn.setOnClickListener {
                 viewModel.previousMonth()
             }
+            initToolbar(toolbarView)
         }
         return binding!!.root
     }

@@ -1,7 +1,7 @@
 package com.dzhafar.main.presentation.view
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.coreDbApi.di.AppWithFacade
 import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
 import com.dzhafar.main.R
@@ -27,7 +28,7 @@ import javax.inject.Inject
  * Use the [NoteListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NoteListFragment : Fragment(R.layout.fragment_note_list) {
+class NoteListFragment : BaseFragment(R.layout.fragment_note_list) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -41,15 +42,19 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
 
     var binding: FragmentNoteListBinding? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        MainComponent.create(
+            (requireActivity().application as AppWithFacade)
+                .getFacade()
+        ).inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        MainComponent.create(
-            (requireActivity().application as AppWithFacade)
-                .getFacade()
-        ).inject(this)
         if (binding == null) {
             binding = DataBindingUtil.inflate(
                 inflater,
@@ -79,14 +84,18 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
             toolbarView.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.addNote -> {
-                        /*findNavController()
-                            .navigate(R.id.action_noteListFragment_to_createNoteFragment)*/
+                        findNavController()
+                            .navigate(R.id.action_noteListFragment_to_createNoteFragment)
+                        true
+                    }
+                    R.id.calendar -> {
                         navigateToCalendar.navigate(this)
                         true
                     }
                     else -> false
                 }
             }
+            initToolbar(toolbarView)
         }
         return binding!!.root
     }
@@ -99,7 +108,6 @@ class NoteListFragment : Fragment(R.layout.fragment_note_list) {
             Observer {
                 noteListAdapterRV.setData(it)
                 noteListAdapterRV.notifyDataSetChanged()
-                Log.d("NOTE LIST FRAGMENT", it.isEmpty().toString())
             }
         )
     }

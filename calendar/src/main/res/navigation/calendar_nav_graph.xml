@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.dzhafar.calendar.presentation.view.CalendarFragment"
-        android:label="CalendarFragment" >
+        android:label="@string/calendar" >
 
         <deepLink app:uri="@string/navigate_to_calendar_deeplink"/>
     </fragment>

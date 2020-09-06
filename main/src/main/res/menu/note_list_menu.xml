@@ -6,4 +6,10 @@
         android:icon="@drawable/ic_add_white_24dp"
         android:title="@string/add_note"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/calendar"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/calendar"
+        app:showAsAction="ifRoom"/>
 </menu>

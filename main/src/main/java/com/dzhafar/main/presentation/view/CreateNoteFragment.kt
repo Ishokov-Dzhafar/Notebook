@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.coreDbApi.di.AppWithFacade
 import com.dzhafar.coreDbApi.hideKeyboard
 import com.dzhafar.coreDbApi.viewModel.ViewModelFactory
@@ -19,7 +19,7 @@ import com.dzhafar.main.di.MainComponent
 import com.dzhafar.main.presentation.vm.CreateNoteVM
 import javax.inject.Inject
 
-class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
+class CreateNoteFragment : BaseFragment(R.layout.fragment_create_note) {
     val viewModel: CreateNoteVM by viewModels { viewModelFactory }
 
     @Inject
@@ -60,6 +60,7 @@ class CreateNoteFragment : Fragment(R.layout.fragment_create_note) {
                     else -> false
                 }
             }
+            initToolbar(toolbarView)
         }
         return binding!!.root
     }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/noteListFragment"
         android:name="com.dzhafar.main.presentation.view.NoteListFragment"
-        android:label="fragment_note_list"
+        android:label="@string/main_title"
         tools:layout="@layout/fragment_note_list">
         <action
             android:id="@+id/action_noteListFragment_to_createNoteFragment"
@@ -27,11 +27,11 @@
     <fragment
         android:id="@+id/createNoteFragment"
         android:name="com.dzhafar.main.presentation.view.CreateNoteFragment"
-        android:label="CreateNoteFragment" />
+        android:label="@string/add_note" />
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.dzhafar.main.presentation.view.EditNoteFragment"
-        android:label="EditNoteFragment" >
+        android:label="@string/change" >
         <argument
             android:name="@string/note_model_arg"
             app:argType="com.dzhafar.main.domain.models.NoteModel" />

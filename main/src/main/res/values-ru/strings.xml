@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Notebook</string>
+
+    <string name="search_title">Поиск…</string>
+    <string name="main_title">Главная</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="save">Сохранить</string>
+    <string name="change">Изменить</string>
+    <string name="title_note">Заголовок</string>
+    <string name="text_body">Содержание</string>
     <string name="delete">Удалить</string>
     <string name="note_model_arg">Модель аргумента заметки</string>
+    <string name="calendar">Календарь</string>
 </resources>

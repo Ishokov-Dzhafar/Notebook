@@ -2,9 +2,9 @@ package com.dzhafar.notebook
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.dzhafar.calendar.di.CalendarComponent
 import com.dzhafar.coreDbApi.di.AppWithFacade
 import com.dzhafar.main.di.MainComponent
-import com.dzhafar.calendar.di.CalendarComponent
 
 class MainActivity : AppCompatActivity() {
 
