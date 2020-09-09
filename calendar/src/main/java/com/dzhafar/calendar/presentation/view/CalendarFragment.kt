@@ -25,10 +25,10 @@ import kotlinx.android.synthetic.main.calendar_fragment.view.previousMonthBtn
 import javax.inject.Inject
 
 class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
-    val viewModel: CalendarFragmentViewModel by viewModels { viewModelFactory }
+    private val viewModel: CalendarFragmentViewModel by viewModels { viewModelFactory }
 
     @Inject
-    lateinit var viewModelFactory: com.dzhafar.coreApi.viewModel.ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var calendarAdapter: CalendarAdapter
 
@@ -36,7 +36,7 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        CalendarComponent.create((requireActivity().application as com.dzhafar.coreApi.di.AppWithFacade).getFacade())
+        CalendarComponent.create((requireActivity().application as AppWithFacade).getFacade())
             .inject(this)
     }
 

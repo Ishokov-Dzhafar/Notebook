@@ -6,5 +6,6 @@ data class NoteModel(
     val id: Long?,
     val text: String,
     val date: Long,
-    val title: String
+    val title: String,
+    val dayId: Int?
 ) : Serializable

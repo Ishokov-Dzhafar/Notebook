@@ -7,12 +7,14 @@ fun NoteEntity.toNoteModel() = NoteModel(
     id = id,
     text = text,
     date = date,
-    title = title
+    title = title,
+    dayId = dayId
 )
 
 fun NoteModel.toNoteEntity() = NoteEntity(
     id = id,
     text = text,
     date = date,
-    title = title
+    title = title,
+    dayId = dayId
 )

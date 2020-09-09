@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="rippleColor">@color/colorPrimaryRipple</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NormalTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="GreyNormalTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="CalendarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ToolbarCustom" parent="Theme.MaterialComponents.Light">
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:backgroundSplit">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <!--To change the background of options menu-->
+        <item name="android:itemBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Gets rid of the search icon -->
+        <item name="searchIcon">@drawable/ic_search_white_24dp</item>
+        <!-- Gets rid of the "underline" in the text -->
+        <item name="queryBackground">@color/colorPrimaryDark</item>
+        <!-- Gets rid of the search icon when the SearchView is expanded -->
+        <item name="searchHintIcon">@null</item>
+        <!-- The hint text that appears when the user has not typed anything -->
+        <item name="queryHint">@string/search_title</item>
+    </style>
+</resources>

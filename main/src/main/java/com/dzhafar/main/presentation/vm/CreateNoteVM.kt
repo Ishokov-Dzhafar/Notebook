@@ -22,7 +22,8 @@ class CreateNoteVM @Inject constructor(private val noteInteractor: NoteInteracto
             text = text,
             date = Date().time,
             title = title,
-            id = null
+            id = null,
+            dayId = null
         )
         viewModelScope.launch {
             noteInteractor.createNote(note)

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.dzhafar.coreDbApi.data.dao.NoteDao
 import com.dzhafar.coreDbApi.di.DBApi
 import com.dzhafar.coreDbImpl.data.CoreDB
+import com.dzhafar.coreDbImpl.data.migrations.MIGRATION_1_TO_2
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,6 +22,9 @@ class DBModule {
             context,
             CoreDB::class.java,
             NOTE_DATABASE_NAME
+        ).addMigrations(
+            // TODO add migration
+            MIGRATION_1_TO_2
         ).build()
     }
 

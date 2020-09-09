@@ -21,5 +21,7 @@
     <string name="october">Октябрь</string>
     <string name="november">Ноябрь</string>
     <string name="december">Декабрь</string>
+    <string name="work_interval">Интервал выполнение:</string>
+    <string name="delete">Удалить</string>
 
 </resources>

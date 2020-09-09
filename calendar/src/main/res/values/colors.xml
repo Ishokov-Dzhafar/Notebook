@@ -2,4 +2,5 @@
 <resources>
     <color name="disable">@color/grey</color>
     <color name="active">@color/black</color>
+    <color name="primaryRipple">@color/colorPrimaryRipple</color>
 </resources>

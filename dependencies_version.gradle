@@ -13,6 +13,7 @@ ext {
     junitTestVersion = '1.1.1'
     esspressoCoreVersion = '3.2.0'
     constraintLayoutVersion = '2.0.0-beta8'
+    rvAdapterDelegatesVersion = '4.3.0'
 
 
     // Navigation
@@ -59,5 +60,8 @@ ext {
 
     //Constraint Layout
     constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    // RecyclerView Adapter Delegates
+    rvAdapterDelegates = "com.hannesdorfmann:adapterdelegates4:$rvAdapterDelegatesVersion"
 
 }
