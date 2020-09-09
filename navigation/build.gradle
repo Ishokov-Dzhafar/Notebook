@@ -39,7 +39,7 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
     implementation project(':coreDbApi')
-    implementation project(':main')
+    implementation project(':notes')
     implementation project(':calendar')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

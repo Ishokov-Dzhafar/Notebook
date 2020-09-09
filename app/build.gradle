@@ -43,7 +43,7 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
     implementation project(':core')
-    implementation project(':main')
+    implementation project(':notes')
     implementation project(':calendar')
     implementation project(':navigation')
 

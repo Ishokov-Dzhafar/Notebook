@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="deeplink_to_create_note" translatable="false">notebook://note/create</string>
+</resources>
