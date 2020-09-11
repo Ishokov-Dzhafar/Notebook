@@ -6,4 +6,5 @@ import java.util.Date
 
 interface CalendarInteractor {
     fun getCalendar(currentDate: Date, visibleDate: Date): Flow<List<CalendarItem>>
+    fun insertCalendarItem(calendarItem: CalendarItem): Flow<Long>
 }

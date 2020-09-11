@@ -8,6 +8,7 @@ import com.dzhafar.calendar.domain.enums.EnumDayOfWeek.SUNDAY
 import com.dzhafar.calendar.domain.enums.EnumDayOfWeek.THURSDAY
 import com.dzhafar.calendar.domain.enums.EnumDayOfWeek.TUESDAY
 import com.dzhafar.calendar.domain.enums.EnumDayOfWeek.WEDNESDAY
+import com.dzhafar.calendar.domain.enums.EnumMonths
 import com.dzhafar.calendar.domain.models.ActiveCalendarItem
 import com.dzhafar.calendar.domain.models.CalendarItem
 import com.dzhafar.calendar.domain.models.DisableCalendarItem
@@ -49,36 +50,55 @@ class GetCalendarItemsUseCase @Inject constructor(
             val month = calendar.get(Calendar.MONTH)
             val months = getCountOfDayInMonths(year)
             val countFromMondayToCurrent = countFromMondayTo(dayOfWeek)
-            val finishDateDayOfWeek = ((dayOfWeek.id + months[month]!! - 1) % countOfDaysInWeek).let { id ->
-                EnumDayOfWeek.values().find { it.id == id }!!
-            }
+            val finishDateDayOfWeek =
+                ((dayOfWeek.id + months[month]!! - 1) % countOfDaysInWeek).let { id ->
+                    EnumDayOfWeek.values().find { it.id == id }!!
+                }
             val countToMondayFromCurrent = countToMondayFrom(finishDateDayOfWeek)
             val calendarItems = mutableListOf<CalendarItem>()
             val countCurrentMonth = months[month]!!
             val countPreviousMonth =
                 if (month == januaryIndex) months[decemberIndex]!! else months[month - 1]!!
 
+            val monthEnum = EnumMonths.values().find { it.id == month } ?: EnumMonths.JANUARY
+
             if (countFromMondayToCurrent != 0) {
                 for (i in countFromMondayToCurrent - 1 downTo 0)
-                    calendarItems.add(DisableCalendarItem(listOf(), countPreviousMonth - i))
+                    calendarItems.add(
+                        DisableCalendarItem(
+                            listOf(),
+                            countPreviousMonth - i,
+                            monthEnum,
+                            year,
+                            null
+                        )
+                    )
             }
 
             for (i in 1..countCurrentMonth)
                 calendarItems.add(
                     if (i == currentDay) EnableCalendarItem(
                         listOf(),
-                        i
-                    ) else ActiveCalendarItem(listOf(), i)
+                        i, monthEnum, year, null
+                    ) else ActiveCalendarItem(listOf(), i, monthEnum, year, null)
                 )
 
             if (countToMondayFromCurrent != 0) {
                 for (i in 1..countToMondayFromCurrent)
-                    calendarItems.add(DisableCalendarItem(listOf(), i))
+                    calendarItems.add(DisableCalendarItem(listOf(), i, monthEnum, year, null))
             }
 
             if (calendarItems.size < visibleDaysCount) {
                 for (i in 1..visibleDaysCount - calendarItems.size)
-                    calendarItems.add(DisableCalendarItem(listOf(), countToMondayFromCurrent + i))
+                    calendarItems.add(
+                        DisableCalendarItem(
+                            listOf(),
+                            countToMondayFromCurrent + i,
+                            monthEnum,
+                            year,
+                            null
+                        )
+                    )
             }
             calendarItems
         }

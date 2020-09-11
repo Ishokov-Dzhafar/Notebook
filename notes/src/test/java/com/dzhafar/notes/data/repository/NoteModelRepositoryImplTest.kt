@@ -42,19 +42,22 @@ class NoteModelRepositoryImplTest {
                 1,
                 "1111",
                 11111111111,
-                "111"
+                "111",
+                null
             ),
             NoteEntity(
                 2,
                 "2222",
                 11111111112,
-                "222"
+                "222",
+                null
             ),
             NoteEntity(
                 3,
                 "3333",
                 11111111113,
-                "333"
+                "333",
+                null
             )
         ).toList()
         val noteListMain = noteList.map {
@@ -77,7 +80,8 @@ class NoteModelRepositoryImplTest {
             null,
             "2222",
             1111111111,
-            "222"
+            "222",
+            null
         )
         Mockito.`when`(db.noteDao()).thenReturn(noteDao)
         runBlocking {
@@ -91,7 +95,7 @@ class NoteModelRepositoryImplTest {
     @Test
     fun `delete Note`() {
         val noteEntityId = 1.toLong()
-        val noteModel = NoteModel(noteEntityId, "2222", 1111111111, "222")
+        val noteModel = NoteModel(noteEntityId, "2222", 1111111111, "222", null)
         Mockito.`when`(db.noteDao()).thenReturn(noteDao)
         runBlocking {
             Mockito.`when`(db.noteDao().deleteNoteById(noteEntityId)).then {

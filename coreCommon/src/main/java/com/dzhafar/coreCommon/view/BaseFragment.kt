@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.dzhafar.coreCommon.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
 
@@ -24,5 +26,12 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
     private fun hideKeyboard() {
         val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    fun showErrorDialog(message: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.error)
+            .setMessage(message)
+            .show()
     }
 }

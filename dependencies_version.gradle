@@ -14,6 +14,7 @@ ext {
     esspressoCoreVersion = '3.2.0'
     constraintLayoutVersion = '2.0.0-beta8'
     rvAdapterDelegatesVersion = '4.3.0'
+    gsonVersion = '2.8.6'
 
 
     // Navigation
@@ -63,5 +64,8 @@ ext {
 
     // RecyclerView Adapter Delegates
     rvAdapterDelegates = "com.hannesdorfmann:adapterdelegates4:$rvAdapterDelegatesVersion"
+
+    // Gson
+    gson = "com.google.code.gson:gson:$gsonVersion"
 
 }

@@ -8,7 +8,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    dependencies = [ProvidersFacade::class], modules = [ViewModelModule::class, InteractorsModule::class]
+    dependencies = [ProvidersFacade::class],
+    modules = [ViewModelModule::class, InteractorsModule::class, RepositoryModule::class]
 )
 interface CalendarComponent {
 
@@ -20,6 +21,7 @@ interface CalendarComponent {
                 .build()
         }
     }
+
     fun inject(fragment: CalendarFragment)
     fun inject(fragment: DayFragment)
 }

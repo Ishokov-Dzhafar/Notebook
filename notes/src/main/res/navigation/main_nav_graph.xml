@@ -28,7 +28,7 @@
         android:id="@+id/createNoteFragment"
         android:name="com.dzhafar.notes.presentation.view.CreateNoteFragment"
         android:label="@string/add_note">
-
+        <deepLink app:uri="@string/navigate_to_create_note" />
     </fragment>
     <fragment
         android:id="@+id/editNoteFragment"

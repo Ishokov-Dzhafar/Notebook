@@ -14,6 +14,7 @@ val MIGRATION_1_TO_2 = object : Migration(1, 2) {
                 CREATE TABLE $CALENDAR_DAY(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 year INTEGER NOT NULL,
+                month INTEGER NOT NULL,
                 day INTEGER NOT NULL)
             """
         )

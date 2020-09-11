@@ -1,4 +1,4 @@
-package com.dzhafar.coreCommon
+package com.dzhafar.coreCommon.utils
 
 import android.app.Activity
 import android.content.Context

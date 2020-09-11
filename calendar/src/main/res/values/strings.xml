@@ -23,4 +23,6 @@
     <string name="december">December</string>
     <string name="work_interval">Work interval:</string>
     <string name="delete">Delete</string>
+    <string name="add_note">Add Note</string>
+    <string name="day_id" translatable="false">day_id</string>
 </resources>

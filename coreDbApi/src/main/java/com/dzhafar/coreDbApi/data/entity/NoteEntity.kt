@@ -14,5 +14,5 @@ data class NoteEntity(
     @ColumnInfo(name = "text") val text: String,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "dayId") val dayId: Int?
+    @ColumnInfo(name = "dayId") val dayId: Long?
 )

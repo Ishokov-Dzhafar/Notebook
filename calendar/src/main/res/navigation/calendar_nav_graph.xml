@@ -9,6 +9,23 @@
         android:label="@string/calendar" >
 
         <deepLink app:uri="@string/navigate_to_calendar_deeplink"/>
+        <action
+            android:id="@+id/action_calendarFragment_to_dayFragment"
+            app:destination="@id/dayFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/dayFragment"
+        android:name="com.dzhafar.calendar.presentation.view.DayFragment"
+        android:label="DayFragment">
+
+        <argument android:name="@string/day_id"
+            app:argType="long" />
     </fragment>
 
 </navigation>

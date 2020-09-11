@@ -14,7 +14,7 @@
         android:id="@+id/appBar"
         app:layout_scrollFlags="scroll|enterAlways"
         >
-        <include android:id="@+id/toolbarLayout"
+        <include
             layout="@layout/toolbar"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"

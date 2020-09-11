@@ -17,13 +17,15 @@ class CreateNoteVM @Inject constructor(private val noteInteractor: NoteInteracto
     private val createNoteMLD = MutableLiveData<Unit>()
     val createNoteLD: LiveData<Unit> = createNoteMLD
 
+    private var dayId: Long? = null
+
     fun createNote(title: String, text: String) {
         val note = NoteModel(
             text = text,
             date = Date().time,
             title = title,
             id = null,
-            dayId = null
+            dayId = dayId
         )
         viewModelScope.launch {
             noteInteractor.createNote(note)
@@ -31,5 +33,9 @@ class CreateNoteVM @Inject constructor(private val noteInteractor: NoteInteracto
                 createNoteMLD.value = Unit
             }
         }
+    }
+
+    fun saveDayId(dayId: Long) {
+        this.dayId = dayId
     }
 }

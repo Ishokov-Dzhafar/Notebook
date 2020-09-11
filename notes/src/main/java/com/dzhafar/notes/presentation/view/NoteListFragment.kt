@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.notes.R
 import com.dzhafar.notes.databinding.FragmentNoteListBinding
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class NoteListFragment : BaseFragment(R.layout.fragment_note_list) {
 
     @Inject
-    lateinit var viewModelFactory: com.dzhafar.coreApi.viewModel.ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
     lateinit var navigateToCalendar: NavigateToCalendarMediator

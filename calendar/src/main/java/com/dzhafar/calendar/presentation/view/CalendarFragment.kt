@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.dzhafar.coreApi.di.AppWithFacade
 import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.calendar.R
@@ -18,6 +20,7 @@ import com.dzhafar.calendar.domain.enums.EnumMonths
 import com.dzhafar.calendar.presentation.view.adapters.CalendarAdapter
 import com.dzhafar.calendar.presentation.vm.CalendarFragmentViewModel
 import com.dzhafar.coreCommon.view.BaseFragment
+import com.dzhafar.navigationapi.navigation.notes.NavigateToCreateNotesMediator
 import kotlinx.android.synthetic.main.calendar_fragment.calendarGridView
 import kotlinx.android.synthetic.main.calendar_fragment.monthText
 import kotlinx.android.synthetic.main.calendar_fragment.view.nextMonthBtn
@@ -54,7 +57,10 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
             )
             val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
             toolbarView.title = getString(R.string.calendar)
-            calendarAdapter = CalendarAdapter(requireContext())
+            calendarAdapter = CalendarAdapter(
+                requireContext(),
+                clickListener = { viewModel.openCalendarItem(it) }
+            )
             binding!!.root.nextMonthBtn.setOnClickListener {
                 viewModel.nextMonth()
             }
@@ -70,6 +76,14 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
         super.onViewCreated(view, savedInstanceState)
         with(calendarGridView) {
             adapter = calendarAdapter
+        }
+        initObservables()
+    }
+
+    fun initObservables() {
+        viewModel.openDay.observe(viewLifecycleOwner) {
+            val bundle = bundleOf(Pair(getString(R.string.day_id), it))
+            findNavController().navigate(R.id.action_calendarFragment_to_dayFragment, bundle)
         }
         viewModel.calendarItems.observe(viewLifecycleOwner) {
             calendarAdapter.updateItems(calendarItems = it)

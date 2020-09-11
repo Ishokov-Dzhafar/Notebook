@@ -23,5 +23,6 @@
     <string name="december">Декабрь</string>
     <string name="work_interval">Интервал выполнение:</string>
     <string name="delete">Удалить</string>
+    <string name="add_note">Добавить заметку</string>
 
 </resources>

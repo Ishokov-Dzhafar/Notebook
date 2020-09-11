@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="deeplink_to_create_note" translatable="false">notebook://note/create</string>
+    <string name="create_note_field" translatable="false">DAY_ID</string>
+    <string name="navigate_to_create_note" translatable="false">notebook://note/create/{DAY_ID}</string>
 </resources>
