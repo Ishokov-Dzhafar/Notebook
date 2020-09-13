@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.dzhafar.calendar.domain.enums.EnumMonths
 import com.dzhafar.calendar.domain.interactors.CalendarInteractor
 import com.dzhafar.calendar.domain.models.CalendarItem

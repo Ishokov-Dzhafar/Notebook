@@ -8,9 +8,7 @@ import androidx.room.TypeConverters
 import com.dzhafar.coreDbApi.data.converters.MonthEnumConverter
 import com.dzhafar.coreDbApi.data.entity.CALENDAR_DAY
 import com.dzhafar.coreDbApi.data.entity.CalendarDayEntity
-import com.dzhafar.coreDbApi.data.entity.NOTE
 import com.dzhafar.coreDbApi.data.enums.MonthEnums
-import com.dzhafar.coreDbApi.data.models.CalendarDateModel
 import com.dzhafar.coreDbApi.data.models.CalendarItemModel
 
 @Dao

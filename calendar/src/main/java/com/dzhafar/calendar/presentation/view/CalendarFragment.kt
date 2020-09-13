@@ -11,29 +11,33 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.dzhafar.coreApi.di.AppWithFacade
 import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.calendar.R
 import com.dzhafar.calendar.databinding.CalendarFragmentBinding
 import com.dzhafar.calendar.di.CalendarComponent
 import com.dzhafar.calendar.domain.enums.EnumMonths
-import com.dzhafar.calendar.presentation.view.adapters.CalendarAdapter
+import com.dzhafar.calendar.presentation.view.adapters.CalendarRecyclerViewAdapter
 import com.dzhafar.calendar.presentation.vm.CalendarFragmentViewModel
 import com.dzhafar.coreCommon.view.BaseFragment
-import com.dzhafar.navigationapi.navigation.notes.NavigateToCreateNotesMediator
-import kotlinx.android.synthetic.main.calendar_fragment.calendarGridView
+import kotlinx.android.synthetic.main.calendar_fragment.calendarRecyclerView
 import kotlinx.android.synthetic.main.calendar_fragment.monthText
 import kotlinx.android.synthetic.main.calendar_fragment.view.nextMonthBtn
 import kotlinx.android.synthetic.main.calendar_fragment.view.previousMonthBtn
 import javax.inject.Inject
 
 class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
+    companion object {
+        const val COLUMN_COUNT = 7
+    }
+
     private val viewModel: CalendarFragmentViewModel by viewModels { viewModelFactory }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var calendarAdapter: CalendarAdapter
+    private lateinit var calendarAdapterRV: CalendarRecyclerViewAdapter
 
     private var binding: CalendarFragmentBinding? = null
 
@@ -57,10 +61,9 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
             )
             val toolbarView = binding!!.root.findViewById<Toolbar>(R.id.toolbarView)
             toolbarView.title = getString(R.string.calendar)
-            calendarAdapter = CalendarAdapter(
-                requireContext(),
-                clickListener = { viewModel.openCalendarItem(it) }
-            )
+            calendarAdapterRV = CalendarRecyclerViewAdapter {
+                viewModel.openCalendarItem(it)
+            }
             binding!!.root.nextMonthBtn.setOnClickListener {
                 viewModel.nextMonth()
             }
@@ -74,19 +77,20 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(calendarGridView) {
-            adapter = calendarAdapter
+        with(calendarRecyclerView) {
+            layoutManager = GridLayoutManager(requireContext(), COLUMN_COUNT)
+            adapter = calendarAdapterRV
         }
         initObservables()
     }
 
-    fun initObservables() {
+    private fun initObservables() {
         viewModel.openDay.observe(viewLifecycleOwner) {
             val bundle = bundleOf(Pair(getString(R.string.day_id), it))
             findNavController().navigate(R.id.action_calendarFragment_to_dayFragment, bundle)
         }
         viewModel.calendarItems.observe(viewLifecycleOwner) {
-            calendarAdapter.updateItems(calendarItems = it)
+            calendarAdapterRV.setItems(it)
         }
         viewModel.month.observe(viewLifecycleOwner) {
             monthText.text = getString(

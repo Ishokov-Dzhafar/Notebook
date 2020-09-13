@@ -46,8 +46,9 @@ class GetCalendarItemsUseCase @Inject constructor(
         }.flatMapConcat { date ->
             getDayOfWeekFromDateUseCase.execute(GetDayOfWeekFromDateUseCase.Params(date))
         }.map { dayOfWeek ->
-            val currentDay = Calendar.getInstance()
+            val currentDate = Calendar.getInstance()
                 .apply { time = params.currentDate }
+            val currentDay = currentDate
                 .get(Calendar.DAY_OF_MONTH)
             val calendar = Calendar.getInstance().apply { time = params.visibleDate }
             val year = calendar.get(Calendar.YEAR)
@@ -75,8 +76,18 @@ class GetCalendarItemsUseCase @Inject constructor(
                 )
             )
 
+            val currentMonth =
+                EnumMonths.values().find { it.id == currentDate.get(Calendar.MONTH) }!!
+
             calendarItems.addAll(
-                getEnableMonthDays(countCurrentMonth, currentDay, monthEnum, year)
+                getEnableMonthDays(
+                    countCurrentMonth,
+                    currentDay,
+                    currentMonth,
+                    currentDate.get(Calendar.YEAR),
+                    monthEnum,
+                    year
+                )
             )
             calendarItems.addAll(
                 getNextMonthDays(countToMondayFromCurrent, calendarItems, monthEnum, year)
@@ -141,9 +152,12 @@ class GetCalendarItemsUseCase @Inject constructor(
         return result
     }
 
+    @Suppress("LongParameterList")
     private suspend fun getEnableMonthDays(
         countCurrentMonth: Int,
         currentDay: Int,
+        currentMonth: EnumMonths,
+        currentYear: Int,
         monthEnum: EnumMonths,
         year: Int
     ): List<CalendarItem> {
@@ -160,7 +174,7 @@ class GetCalendarItemsUseCase @Inject constructor(
         )
         val listFromDB = calendarRepository.fetchCalendarItems(startDate, endDate).map { list ->
             list.map {
-                if (it.day == currentDay) EnableCalendarItem(
+                if (it.day == currentDay && it.month == currentMonth && it.year == currentYear) EnableCalendarItem(
                     it.notesTitle,
                     it.day,
                     monthEnum,
@@ -177,9 +191,10 @@ class GetCalendarItemsUseCase @Inject constructor(
         }.single()
         for (i in 1..countCurrentMonth)
             result.add(
-                listFromDB.find { it.day == i } ?: if (i == currentDay) EnableCalendarItem(
-                    listOf(), i, monthEnum, year, null
-                ) else ActiveCalendarItem(listOf(), i, monthEnum, year, null)
+                listFromDB.find { it.day == i }
+                    ?: if (i == currentDay && monthEnum == currentMonth && year == currentYear) EnableCalendarItem(
+                        listOf(), i, monthEnum, year, null
+                    ) else ActiveCalendarItem(listOf(), i, monthEnum, year, null)
             )
         return result
     }

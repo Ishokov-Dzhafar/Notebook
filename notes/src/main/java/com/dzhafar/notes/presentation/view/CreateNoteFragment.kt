@@ -2,7 +2,6 @@ package com.dzhafar.notes.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.dzhafar.coreApi.di.AppWithFacade
 import com.dzhafar.coreApi.viewModel.ViewModelFactory
-import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.coreCommon.utils.hideKeyboard
+import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.notes.R
 import com.dzhafar.notes.databinding.FragmentCreateNoteBinding
 import com.dzhafar.notes.di.MainComponent
 import com.dzhafar.notes.presentation.vm.CreateNoteVM
-import com.google.gson.Gson
 import javax.inject.Inject
 
 class CreateNoteFragment : BaseFragment(R.layout.fragment_create_note) {
