@@ -23,5 +23,10 @@ val MIGRATION_1_TO_2 = object : Migration(1, 2) {
                 ALTER TABLE $NOTE ADD COLUMN dayId INTEGER REFERENCES $CALENDAR_DAY(id)
             """
         )
+        database.execSQL(
+            """
+                CREATE INDEX dayId ON $CALENDAR_DAY(dayId)
+            """
+        )
     }
 }

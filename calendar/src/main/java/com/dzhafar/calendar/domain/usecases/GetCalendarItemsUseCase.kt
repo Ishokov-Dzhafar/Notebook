@@ -10,21 +10,25 @@ import com.dzhafar.calendar.domain.enums.EnumDayOfWeek.TUESDAY
 import com.dzhafar.calendar.domain.enums.EnumDayOfWeek.WEDNESDAY
 import com.dzhafar.calendar.domain.enums.EnumMonths
 import com.dzhafar.calendar.domain.models.ActiveCalendarItem
+import com.dzhafar.calendar.domain.models.CalendarDate
 import com.dzhafar.calendar.domain.models.CalendarItem
 import com.dzhafar.calendar.domain.models.DisableCalendarItem
 import com.dzhafar.calendar.domain.models.EnableCalendarItem
+import com.dzhafar.calendar.domain.repositories.CalendarRepository
 import com.dzhafar.coreCommon.usecase.base.FlowUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.single
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 
 class GetCalendarItemsUseCase @Inject constructor(
-    private val getDayOfWeekFromDateUseCase: GetDayOfWeekFromDateUseCase
+    private val getDayOfWeekFromDateUseCase: GetDayOfWeekFromDateUseCase,
+    private val calendarRepository: CalendarRepository
 ) : FlowUseCase<List<CalendarItem>, GetCalendarItemsUseCase.Params> {
 
     companion object {
@@ -62,46 +66,165 @@ class GetCalendarItemsUseCase @Inject constructor(
 
             val monthEnum = EnumMonths.values().find { it.id == month } ?: EnumMonths.JANUARY
 
-            if (countFromMondayToCurrent != 0) {
-                for (i in countFromMondayToCurrent - 1 downTo 0)
-                    calendarItems.add(
-                        DisableCalendarItem(
-                            listOf(),
-                            countPreviousMonth - i,
-                            monthEnum,
-                            year,
-                            null
-                        )
-                    )
-            }
-
-            for (i in 1..countCurrentMonth)
-                calendarItems.add(
-                    if (i == currentDay) EnableCalendarItem(
-                        listOf(),
-                        i, monthEnum, year, null
-                    ) else ActiveCalendarItem(listOf(), i, monthEnum, year, null)
+            calendarItems.addAll(
+                getPreviousMonthDays(
+                    countFromMondayToCurrent,
+                    countPreviousMonth,
+                    monthEnum,
+                    year
                 )
+            )
 
-            if (countToMondayFromCurrent != 0) {
-                for (i in 1..countToMondayFromCurrent)
-                    calendarItems.add(DisableCalendarItem(listOf(), i, monthEnum, year, null))
-            }
-
-            if (calendarItems.size < visibleDaysCount) {
-                for (i in 1..visibleDaysCount - calendarItems.size)
-                    calendarItems.add(
-                        DisableCalendarItem(
-                            listOf(),
-                            countToMondayFromCurrent + i,
-                            monthEnum,
-                            year,
-                            null
-                        )
-                    )
-            }
+            calendarItems.addAll(
+                getEnableMonthDays(countCurrentMonth, currentDay, monthEnum, year)
+            )
+            calendarItems.addAll(
+                getNextMonthDays(countToMondayFromCurrent, calendarItems, monthEnum, year)
+            )
             calendarItems
         }
+    }
+
+    private suspend fun getNextMonthDays(
+        countToMondayFromCurrent: Int,
+        calendarItems: MutableList<CalendarItem>,
+        monthEnum: EnumMonths,
+        year: Int
+    ): List<CalendarItem> {
+        val result = mutableListOf<CalendarItem>()
+        val startDate = CalendarDate(
+            1,
+            monthEnum,
+            year
+        )
+        val endDate = CalendarDate(
+            countToMondayFromCurrent,
+            monthEnum,
+            year
+        )
+        val listFromDB = calendarRepository.fetchCalendarItems(startDate, endDate).map { list ->
+            list.map {
+                DisableCalendarItem(
+                    it.notesTitle,
+                    it.day,
+                    monthEnum,
+                    year,
+                    it.id
+                )
+            }
+        }.single()
+        if (countToMondayFromCurrent != 0) {
+            for (i in 1..countToMondayFromCurrent)
+                result.add(
+                    listFromDB.find { it.day == i } ?: DisableCalendarItem(
+                        listOf(),
+                        i,
+                        monthEnum,
+                        year,
+                        null
+                    )
+                )
+        }
+        val size = calendarItems.size + result.size
+        if (size < visibleDaysCount) {
+            for (i in 1..visibleDaysCount - size)
+                result.add(
+                    listFromDB.find { it.day == i } ?: DisableCalendarItem(
+                        listOf(),
+                        countToMondayFromCurrent + i,
+                        monthEnum,
+                        year,
+                        null
+                    )
+                )
+        }
+        return result
+    }
+
+    private suspend fun getEnableMonthDays(
+        countCurrentMonth: Int,
+        currentDay: Int,
+        monthEnum: EnumMonths,
+        year: Int
+    ): List<CalendarItem> {
+        val result = mutableListOf<CalendarItem>()
+        val startDate = CalendarDate(
+            1,
+            monthEnum,
+            year
+        )
+        val endDate = CalendarDate(
+            countCurrentMonth,
+            monthEnum,
+            year
+        )
+        val listFromDB = calendarRepository.fetchCalendarItems(startDate, endDate).map { list ->
+            list.map {
+                if (it.day == currentDay) EnableCalendarItem(
+                    it.notesTitle,
+                    it.day,
+                    monthEnum,
+                    year,
+                    it.id
+                ) else ActiveCalendarItem(
+                    it.notesTitle,
+                    it.day,
+                    monthEnum,
+                    year,
+                    it.id
+                )
+            }
+        }.single()
+        for (i in 1..countCurrentMonth)
+            result.add(
+                listFromDB.find { it.day == i } ?: if (i == currentDay) EnableCalendarItem(
+                    listOf(), i, monthEnum, year, null
+                ) else ActiveCalendarItem(listOf(), i, monthEnum, year, null)
+            )
+        return result
+    }
+
+    private suspend fun getPreviousMonthDays(
+        countFromMondayToCurrent: Int,
+        countPreviousMonth: Int,
+        monthEnum: EnumMonths,
+        year: Int
+    ): List<DisableCalendarItem> {
+        val result = mutableListOf<DisableCalendarItem>()
+        if (countFromMondayToCurrent != 0) {
+            val startDate = CalendarDate(
+                countPreviousMonth - (countFromMondayToCurrent - 1),
+                monthEnum,
+                year
+            )
+            val endDate = CalendarDate(
+                countPreviousMonth,
+                monthEnum,
+                year
+            )
+            val listFromDB = calendarRepository.fetchCalendarItems(startDate, endDate).map { list ->
+                list.map {
+                    DisableCalendarItem(
+                        it.notesTitle,
+                        it.day,
+                        monthEnum,
+                        year,
+                        it.id
+                    )
+                }
+            }.single()
+            for (i in countFromMondayToCurrent - 1 downTo 0)
+                result.add(
+                    listFromDB.find { it.day == countPreviousMonth - i } ?: DisableCalendarItem(
+                        listOf(),
+                        countPreviousMonth - i,
+                        monthEnum,
+                        year,
+                        null
+                    )
+                )
+        }
+        return result
     }
 
     private fun getFirstDayOfMonth(date: Date): Date {

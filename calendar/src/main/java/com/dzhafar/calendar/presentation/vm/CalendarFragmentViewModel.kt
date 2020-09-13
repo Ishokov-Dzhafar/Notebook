@@ -58,7 +58,7 @@ class CalendarFragmentViewModel @Inject constructor(
     }
 
     private fun updateCalendarData() {
-        viewModelScope.launch {
+        coroutineScope.launch {
             calendarInteractor.getCalendar(currentDate.time, visibleDate.time)
                 .collect { calendarList ->
                     val idMonth = visibleDate.get(Calendar.MONTH)

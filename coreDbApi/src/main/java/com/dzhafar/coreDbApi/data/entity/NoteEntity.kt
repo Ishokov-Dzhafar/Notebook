@@ -3,11 +3,13 @@ package com.dzhafar.coreDbApi.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
     tableName = NOTE,
-    foreignKeys = [ForeignKey(entity = CalendarDayEntity::class, parentColumns = ["id"], childColumns = ["dayId"])]
+    foreignKeys = [ForeignKey(entity = CalendarDayEntity::class, parentColumns = ["id"], childColumns = ["dayId"])],
+    indices = [Index("dayId")]
 )
 data class NoteEntity(
     @PrimaryKey val id: Long?,

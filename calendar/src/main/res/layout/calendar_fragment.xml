@@ -23,131 +23,143 @@
             />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/constraintLayout"
-        android:fitsSystemWindows="true"
-        android:paddingHorizontal="8dp"
-        android:paddingBottom="8dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:id="@+id/monthLayout"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toTopOf="@id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
-            app:layout_constraintBottom_toTopOf="@id/dayOfWeekLayout">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:paddingHorizontal="8dp"
+            android:paddingBottom="8dp"
+            android:fitsSystemWindows="true"
+            >
 
-            <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:id="@+id/previousMonthBtn"
-                android:background="@null"
-                android:src="@drawable/ic_baseline_chevron_left_32"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/monthText"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="August"/>
-
-
-            <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:id="@+id/nextMonthBtn"
-                android:background="@null"
-                android:src="@drawable/ic_baseline_chevron_right_32"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:weightSum="7"
-            android:id="@+id/dayOfWeekLayout"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/monthLayout"
-            app:layout_constraintStart_toStartOf="@id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
-            app:layout_constraintBottom_toTopOf="@id/calendarGridView">
-
-            <TextView
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/mo"/>
+                android:id="@+id/constraintLayout"
+                android:fitsSystemWindows="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                >
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/tu"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:id="@+id/monthLayout"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toTopOf="@id/constraintLayout"
+                    app:layout_constraintStart_toStartOf="@id/constraintLayout"
+                    app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                    app:layout_constraintBottom_toTopOf="@id/dayOfWeekLayout">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/we"/>
+                    <ImageButton
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/previousMonthBtn"
+                        android:background="@null"
+                        android:src="@drawable/ic_baseline_chevron_left_32"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/th"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/monthText"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:text="August"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/fr"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/sa"/>
+                    <ImageButton
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/nextMonthBtn"
+                        android:background="@null"
+                        android:src="@drawable/ic_baseline_chevron_right_32"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:text="@string/su"/>
-        </LinearLayout>
+                </LinearLayout>
 
-        <GridView
-            android:id="@+id/calendarGridView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:horizontalSpacing="8dp"
-            android:isScrollContainer="false"
-            android:scrollbars="none"
-            android:numColumns="7"
-            android:verticalSpacing="8dp"
-            app:layout_constraintLeft_toLeftOf="@id/constraintLayout"
-            app:layout_constraintRight_toRightOf="@id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/dayOfWeekLayout"
-            app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:weightSum="7"
+                    android:id="@+id/dayOfWeekLayout"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/monthLayout"
+                    app:layout_constraintStart_toStartOf="@id/constraintLayout"
+                    app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                    app:layout_constraintBottom_toTopOf="@id/calendarGridView">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/mo"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/tu"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/we"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/th"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/fr"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/sa"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/su"/>
+                </LinearLayout>
+
+                <GridView
+                    android:id="@+id/calendarGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:horizontalSpacing="8dp"
+                    android:isScrollContainer="false"
+                    android:scrollbars="none"
+                    android:nestedScrollingEnabled="true"
+                    android:numColumns="7"
+                    android:verticalSpacing="8dp"
+                    app:layout_constraintLeft_toLeftOf="@id/constraintLayout"
+                    app:layout_constraintRight_toRightOf="@id/constraintLayout"
+                    app:layout_constraintTop_toBottomOf="@id/dayOfWeekLayout"
+                    app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

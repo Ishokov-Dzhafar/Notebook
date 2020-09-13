@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.dzhafar.calendar.R
 import com.dzhafar.calendar.domain.models.ActiveCalendarItem
 import com.dzhafar.calendar.domain.models.CalendarItem
 import com.dzhafar.calendar.domain.models.DisableCalendarItem
 import com.dzhafar.calendar.domain.models.EnableCalendarItem
-import kotlinx.android.synthetic.main.calendar_active_item.view.number
 
 class CalendarAdapter(
     private val context: Context,
@@ -28,9 +29,10 @@ class CalendarAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val itemView: View
         val calendarItem = calendarItems[position]
-        return if (convertView == null) {
-            val inflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val viewHolder: ViewHolder
+        if (convertView == null) {
             itemView = when (calendarItem) {
                 is ActiveCalendarItem -> inflater.inflate(
                     R.layout.calendar_active_item,
@@ -48,20 +50,48 @@ class CalendarAdapter(
                     false
                 )
             }
-            itemView.number.text = calendarItem.day.toString()
-            itemView.setOnClickListener { clickListener(calendarItem) }
-            itemView
+            viewHolder = ViewHolder(itemView)
+            itemView.tag = viewHolder
         } else {
-            convertView.number.text = calendarItem.day.toString()
-            convertView.setOnClickListener { clickListener(calendarItem) }
-            convertView
+            viewHolder = convertView.tag as ViewHolder
+            itemView = convertView
         }
+        viewHolder.numberTV.text = calendarItem.day.toString()
+        addNotesView(viewHolder, calendarItem, inflater, parent)
+        viewHolder.view.setOnClickListener { clickListener(calendarItem) }
+        return itemView
+    }
+
+    private fun addNotesView(
+        viewHolder: ViewHolder,
+        calendarItem: CalendarItem,
+        inflater: LayoutInflater,
+        parent: ViewGroup?
+    ) {
+        val container = viewHolder.container
+        val lastIndex =
+            if (calendarItem.notesTitle.size > NOTES_MAX_COUNT) NOTES_MAX_COUNT else calendarItem.notesTitle.size
+        calendarItem.notesTitle.subList(0, lastIndex).forEach {
+            val textView = inflater.inflate(R.layout.note_textview_item, parent, false) as TextView
+            textView.text = it
+            container.addView(textView)
+        }
+        container.addView(TextView(context))
     }
 
     override fun getItem(position: Int): CalendarItem = calendarItems[position]
 
     override fun getItemId(position: Int): Long =
-        calendarItems.hashCode().toLong()
+        position.toLong()
 
     override fun getCount(): Int = calendarItems.size
+
+    companion object {
+        const val NOTES_MAX_COUNT = 3
+    }
+
+    class ViewHolder(public val view: View) {
+        val numberTV = view.findViewById<TextView>(R.id.number)
+        val container = view.findViewById<LinearLayout>(R.id.notesContainer)
+    }
 }
