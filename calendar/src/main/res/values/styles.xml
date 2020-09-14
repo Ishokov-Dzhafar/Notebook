@@ -22,7 +22,7 @@
         <item name="android:textColor">@color/grey</item>
     </style>
 
-    <style name="CalendarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="CalendarTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

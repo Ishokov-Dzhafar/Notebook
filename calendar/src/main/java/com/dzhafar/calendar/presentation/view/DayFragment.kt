@@ -6,13 +6,16 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dzhafar.calendar.R
 import com.dzhafar.calendar.di.CalendarComponent
+import com.dzhafar.calendar.presentation.view.adapters.NotesAdapter
 import com.dzhafar.calendar.presentation.vm.DayFragmentViewModel
 import com.dzhafar.coreApi.di.AppWithFacade
 import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.navigationapi.navigation.notes.NavigateToCreateNotesMediator
+import kotlinx.android.synthetic.main.day_fragment.notesList
 import javax.inject.Inject
 
 class DayFragment : BaseFragment(R.layout.day_fragment) {
@@ -24,6 +27,15 @@ class DayFragment : BaseFragment(R.layout.day_fragment) {
 
     @Inject
     lateinit var navigateToCreateNotesMediator: NavigateToCreateNotesMediator
+
+    private val notesAdapter: NotesAdapter = NotesAdapter(
+        clickItemCallback = {
+
+        },
+        deleteItem = {
+            viewModel.deleteNote(it)
+        }
+    )
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,6 +56,10 @@ class DayFragment : BaseFragment(R.layout.day_fragment) {
                 }
                 else -> false
             }
+        }
+        with(notesList) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = notesAdapter
         }
         initToolbar(toolbar)
         initObservable()
@@ -71,6 +87,12 @@ class DayFragment : BaseFragment(R.layout.day_fragment) {
             viewLifecycleOwner,
             Observer {
                 navigateToCreateNotesMediator.navigate(this, it)
+            }
+        )
+        viewModel.notes.observe(
+            viewLifecycleOwner,
+            Observer {
+                notesAdapter.setItems(it)
             }
         )
     }

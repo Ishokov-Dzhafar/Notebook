@@ -2,4 +2,6 @@
 <resources>
     <string name="create_note_field" translatable="false">DAY_ID</string>
     <string name="navigate_to_create_note" translatable="false">notebook://note/create/{DAY_ID}</string>
+    <string name="edit_note_field" translatable="false">PARAMS</string>
+    <string name="navigate_to_edit_note" translatable="false">notebook://note/edit/{PARAMS}</string>
 </resources>

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dzhafar.calendar.domain.enums.EnumMonths
-import com.dzhafar.calendar.domain.interactors.CalendarInteractor
+import com.dzhafar.calendar.domain.interactors.calendar.CalendarInteractor
 import com.dzhafar.calendar.domain.models.CalendarItem
 import com.dzhafar.coreCommon.utils.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope

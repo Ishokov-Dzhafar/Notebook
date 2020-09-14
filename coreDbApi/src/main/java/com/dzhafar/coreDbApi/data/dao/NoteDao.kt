@@ -3,7 +3,9 @@ package com.dzhafar.coreDbApi.data.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
+import com.dzhafar.coreDbApi.data.entity.NOTE
 import com.dzhafar.coreDbApi.data.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +22,8 @@ interface NoteDao {
 
     @Query("DELETE FROM Note WHERE id = :noteId")
     suspend fun deleteNoteById(noteId: Long)
+
+    @Transaction
+    @Query("SELECT * FROM $NOTE WHERE dayId = :dayId")
+    fun fetchNotesByDayId(dayId: Long): Flow<List<NoteEntity>>
 }

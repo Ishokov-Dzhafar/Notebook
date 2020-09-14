@@ -1,4 +1,4 @@
-package com.dzhafar.calendar.domain.interactors
+package com.dzhafar.calendar.domain.interactors.calendar
 
 import com.dzhafar.calendar.domain.models.CalendarItem
 import kotlinx.coroutines.flow.Flow
