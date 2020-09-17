@@ -82,6 +82,7 @@ class CalendarFragment : BaseFragment(R.layout.calendar_fragment) {
             adapter = calendarAdapterRV
         }
         initObservables()
+        viewModel.updateCalendarData()
     }
 
     private fun initObservables() {

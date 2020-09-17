@@ -10,6 +10,7 @@ import com.dzhafar.coreDbApi.data.entity.CALENDAR_DAY
 import com.dzhafar.coreDbApi.data.entity.CalendarDayEntity
 import com.dzhafar.coreDbApi.data.enums.MonthEnums
 import com.dzhafar.coreDbApi.data.models.CalendarItemModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CalendarDayDao {
@@ -35,14 +36,4 @@ interface CalendarDayDao {
         endDateMonth: MonthEnums,
         endDateYear: Int
     ): List<CalendarItemModel>
-
-    /*"""SELECT id, day, month, year, (
-            SELECT text
-            FROM $NOTE
-            WHERE dayId = id
-        ) as notes
-        FROM $CALENDAR_DAY
-        WHERE day >= :startDateDay AND day <= :endDateDay AND
-        month >= :startDateMonth AND month <= :endDateMonth AND
-        month >= :startDateYear AND month <= :endDateYear"""*/
 }

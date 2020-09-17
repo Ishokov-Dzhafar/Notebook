@@ -37,13 +37,13 @@ class CalendarFragmentViewModel @Inject constructor(
     private val supervisorJob = SupervisorJob()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + supervisorJob)
 
-    init {
+    /*init {
         getCalendar()
     }
 
     private fun getCalendar() {
         updateCalendarData()
-    }
+    }*/
 
     fun nextMonth() {
         val nextMonth = visibleDate.get(Calendar.MONTH) + 1
@@ -56,7 +56,7 @@ class CalendarFragmentViewModel @Inject constructor(
         updateCalendarData()
     }
 
-    private fun updateCalendarData() {
+    fun updateCalendarData() {
         coroutineScope.launch {
             calendarInteractor.getCalendar(currentDate.time, visibleDate.time)
                 .collect { calendarList ->
