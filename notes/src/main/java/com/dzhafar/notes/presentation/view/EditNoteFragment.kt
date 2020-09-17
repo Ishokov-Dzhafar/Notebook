@@ -10,22 +10,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.dzhafar.coreApi.di.AppWithFacade
 import com.dzhafar.coreApi.viewModel.ViewModelFactory
+import com.dzhafar.coreCommon.view.BaseFragment
+import com.dzhafar.navigationapi.navigation.notes.NavigateToEditNoteMediator
 import com.dzhafar.notes.R
 import com.dzhafar.notes.databinding.EditNoteFragmentBinding
 import com.dzhafar.notes.di.MainComponent
 import com.dzhafar.notes.presentation.vm.EditNoteViewModel
-import com.dzhafar.coreCommon.view.BaseFragment
-import com.dzhafar.navigationapi.navigation.notes.NavigateToEditNoteMediator
-import com.dzhafar.notes.domain.models.NoteModel
 import com.google.gson.Gson
 import java.util.Date
 import javax.inject.Inject
 
 class EditNoteFragment : BaseFragment(R.layout.edit_note_fragment) {
-    val viewModel: EditNoteViewModel by viewModels { viewModelFactory }
+    private val viewModel: EditNoteViewModel by viewModels { viewModelFactory }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory

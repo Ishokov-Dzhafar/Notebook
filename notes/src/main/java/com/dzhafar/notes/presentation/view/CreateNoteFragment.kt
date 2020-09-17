@@ -21,7 +21,7 @@ import com.dzhafar.notes.presentation.vm.CreateNoteVM
 import javax.inject.Inject
 
 class CreateNoteFragment : BaseFragment(R.layout.fragment_create_note) {
-    val viewModel: CreateNoteVM by viewModels { viewModelFactory }
+    private val viewModel: CreateNoteVM by viewModels { viewModelFactory }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
