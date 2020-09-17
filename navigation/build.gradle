@@ -56,4 +56,6 @@ dependencies {
 
     implementation dagger
     kapt daggerKapt
+
+    implementation gson
 }

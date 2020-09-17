@@ -34,4 +34,7 @@ class NoteRepositoryImpl @Inject constructor(private val db: DBApi) :
             noteModel.toNoteEntity()
         )
     }
+
+    override suspend fun fetchNoteById(noteId: Long): NoteModel =
+        db.noteDao().fetchNoteById(noteId).toNoteModel()
 }

@@ -8,4 +8,5 @@ interface NoteInteractor {
     suspend fun createNote(noteModel: NoteModel): Long
     suspend fun deleteNote(noteModel: NoteModel)
     suspend fun updateNote(noteModel: NoteModel)
+    suspend fun fetchNoteById(noteId: Long): NoteModel
 }

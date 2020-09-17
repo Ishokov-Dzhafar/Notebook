@@ -10,6 +10,5 @@
     <string name="title_note">Заголовок</string>
     <string name="text_body">Содержание</string>
     <string name="delete">Удалить</string>
-    <string name="note_model_arg">Модель аргумента заметки</string>
     <string name="calendar">Календарь</string>
 </resources>

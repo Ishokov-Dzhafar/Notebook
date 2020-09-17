@@ -34,8 +34,10 @@
         android:id="@+id/editNoteFragment"
         android:name="com.dzhafar.notes.presentation.view.EditNoteFragment"
         android:label="@string/change" >
+        <deepLink app:uri="@string/navigate_to_edit_note"/>
         <argument
-            android:name="@string/note_model_arg"
-            app:argType="com.dzhafar.notes.domain.models.NoteModel" />
+            android:name="@string/note_id_arg"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.dzhafar.navigation.R
 import com.dzhafar.navigationapi.navigation.notes.NavigateToCreateNotesMediator
 import com.dzhafar.navigationapi.navigation.notes.NavigateToEditNoteMediator
+import com.google.gson.Gson
 
 class NavigateToCreateNotesMediatorImpl : NavigateToCreateNotesMediator {
     override fun navigate(fragment: Fragment, params: Long) {
@@ -21,9 +22,10 @@ class NavigateToCreateNotesMediatorImpl : NavigateToCreateNotesMediator {
 class NavigateToEditNoteMediatorImpl : NavigateToEditNoteMediator {
     override fun navigate(fragment: Fragment, params: NavigateToEditNoteMediator.Params) {
         val fieldArg = fragment.getString(R.string.edit_note_field)
+        val json = Gson().toJson(params)
         val uri = Uri.parse(
             fragment.getString(R.string.navigate_to_edit_note)
-                .replace("{$fieldArg}", params.toString())
+                .replace("{$fieldArg}", json)
         )
         fragment.findNavController().navigate(uri)
     }

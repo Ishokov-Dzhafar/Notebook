@@ -5,8 +5,9 @@ import com.dzhafar.notes.domain.repositories.NoteRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class NoteInteractorImpl @Inject constructor(private val noteRepository: NoteRepository) :
-    NoteInteractor {
+class NoteInteractorImpl @Inject constructor(
+    private val noteRepository: NoteRepository
+) : NoteInteractor {
 
     override fun getNoteList(): Flow<List<NoteModel>> {
         return noteRepository.getNoteList()
@@ -23,4 +24,7 @@ class NoteInteractorImpl @Inject constructor(private val noteRepository: NoteRep
     override suspend fun updateNote(noteModel: NoteModel) {
         noteRepository.updateNote(noteModel)
     }
+
+    override suspend fun fetchNoteById(noteId: Long): NoteModel =
+        noteRepository.fetchNoteById(noteId)
 }

@@ -26,4 +26,7 @@ interface NoteDao {
     @Transaction
     @Query("SELECT * FROM $NOTE WHERE dayId = :dayId")
     fun fetchNotesByDayId(dayId: Long): Flow<List<NoteEntity>>
+
+    @Query("SELECT * FROM Note WHERE id = :noteId")
+    suspend fun fetchNoteById(noteId: Long): NoteEntity
 }

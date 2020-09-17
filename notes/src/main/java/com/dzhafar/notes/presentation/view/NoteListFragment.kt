@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -63,10 +64,11 @@ class NoteListFragment : BaseFragment(R.layout.fragment_note_list) {
             )
             noteListAdapterRV = NoteListRVAdapter(
                 clickItemCallback = {
-                    val args = EditNoteFragmentArgs(it)
                     findNavController().navigate(
                         R.id.action_noteListFragment_to_editNoteFragment,
-                        args.toBundle()
+                        bundleOf(
+                            Pair(getString(R.string.note_id_arg), it.id)
+                        )
                     )
                 },
                 deleteItem = {

@@ -15,6 +15,7 @@ import com.dzhafar.coreApi.di.AppWithFacade
 import com.dzhafar.coreApi.viewModel.ViewModelFactory
 import com.dzhafar.coreCommon.view.BaseFragment
 import com.dzhafar.navigationapi.navigation.notes.NavigateToCreateNotesMediator
+import com.dzhafar.navigationapi.navigation.notes.NavigateToEditNoteMediator
 import kotlinx.android.synthetic.main.day_fragment.notesList
 import javax.inject.Inject
 
@@ -28,9 +29,12 @@ class DayFragment : BaseFragment(R.layout.day_fragment) {
     @Inject
     lateinit var navigateToCreateNotesMediator: NavigateToCreateNotesMediator
 
+    @Inject
+    lateinit var navigateToEditNoteMediator: NavigateToEditNoteMediator
+
     private val notesAdapter: NotesAdapter = NotesAdapter(
         clickItemCallback = {
-
+            navigateToEditNoteMediator.navigate(this, NavigateToEditNoteMediator.Params(it.id!!, it.dayId!!))
         },
         deleteItem = {
             viewModel.deleteNote(it)
