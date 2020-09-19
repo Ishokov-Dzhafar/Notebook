@@ -66,16 +66,13 @@
                 android:singleLine="false"
                 android:text="@{note.text}" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteBtn"
+                style="@style/MaterialButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/deleteBtn"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:padding="8dp"
                 android:layout_gravity="end"
-                android:background="@android:color/transparent"
-                android:text="@string/delete"/>
+                android:text="@string/delete" />
 
         </com.dzhafar.notes.presentation.view.CustomCardView>
     </androidx.constraintlayout.motion.widget.MotionLayout>

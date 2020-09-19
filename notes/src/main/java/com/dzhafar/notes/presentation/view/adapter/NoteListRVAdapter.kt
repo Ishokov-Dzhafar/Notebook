@@ -85,11 +85,11 @@ class NoteListRVAdapter(
                 }
 
                 override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
-                    TODO("Not yet implemented")
+                    // TODO("Not yet implemented")
                 }
 
                 override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
-                    TODO("Not yet implemented")
+                    // TODO("Not yet implemented")
                 }
 
                 override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {

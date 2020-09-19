@@ -38,6 +38,12 @@
         <item name="queryHint">@string/search_title</item>
     </style>
 
+    <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="rippleColor">@color/colorPrimaryRipple</item>
+    </style>
+
 
 
 </resources>

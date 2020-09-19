@@ -13,7 +13,7 @@ import com.google.android.material.button.MaterialButton
 
 class NotesAdapter(
     private val clickItemCallback: (item: NoteEntity) -> Unit,
-    private val deleteItem: (item: NoteEntity) -> Unit
+    private val deleteItem: (item: NoteEntity, position: Int) -> Unit
 ) :
     RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
@@ -21,19 +21,27 @@ class NotesAdapter(
         val TAG = this::class.java.simpleName
     }
 
-    private var noteItems = listOf<NoteEntity>()
+    private var noteItems = mutableListOf<NoteEntity>()
 
     fun setItems(list: List<NoteEntity>) {
         val diffUtil = NoteListDiffUtil(noteItems, list)
         val diffResult = DiffUtil.calculateDiff(diffUtil)
-        noteItems = list
+        noteItems = list.toMutableList()
         diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutId = R.layout.note_item
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-        return ViewHolder(view, clickItemCallback, deleteItem)
+        return ViewHolder(
+            view,
+            clickItemCallback,
+            { item: NoteEntity, position: Int ->
+                noteItems.removeAt(position)
+                notifyItemRemoved(position)
+                deleteItem(item, position)
+            }
+        )
     }
 
     override fun getItemCount(): Int {
@@ -53,7 +61,7 @@ class NotesAdapter(
     class ViewHolder(
         view: View,
         private val clickItemCallback: (item: NoteEntity) -> Unit,
-        private val deleteItemCallback: (item: NoteEntity) -> Unit
+        private val deleteItemCallback: (item: NoteEntity, position: Int) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         private val titleTV = itemView.findViewById<TextView>(R.id.titleTV)
         private val createDateTV = itemView.findViewById<TextView>(R.id.createDateTV)
@@ -64,7 +72,7 @@ class NotesAdapter(
             createDateTV.text = getLocalDateFormat(item.date)
             bodyTV.text = item.text
             deleteBtn.setOnClickListener {
-                deleteItemCallback(item)
+                deleteItemCallback(item, adapterPosition)
             }
             itemView.setOnClickListener {
                 clickItemCallback(item)

@@ -2,11 +2,13 @@ package com.dzhafar.calendar.presentation.view
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dzhafar.calendar.R
 import com.dzhafar.calendar.di.CalendarComponent
 import com.dzhafar.calendar.presentation.view.adapters.NotesAdapter
@@ -21,6 +23,10 @@ import javax.inject.Inject
 
 class DayFragment : BaseFragment(R.layout.day_fragment) {
 
+    companion object {
+        const val ANIMATION_DURATION = 500L
+    }
+
     private val viewModel: DayFragmentViewModel by viewModels { viewModelFactory }
 
     @Inject
@@ -34,10 +40,18 @@ class DayFragment : BaseFragment(R.layout.day_fragment) {
 
     private val notesAdapter: NotesAdapter = NotesAdapter(
         clickItemCallback = {
-            navigateToEditNoteMediator.navigate(this, NavigateToEditNoteMediator.Params(it.id!!, it.dayId!!))
+            navigateToEditNoteMediator.navigate(
+                this,
+                NavigateToEditNoteMediator.Params(it.id!!, it.dayId!!)
+            )
         },
-        deleteItem = {
-            viewModel.deleteNote(it)
+        deleteItem = { item, position ->
+            Handler().postDelayed(
+                {
+                    viewModel.deleteNote(item)
+                },
+                ANIMATION_DURATION
+            )
         }
     )
 
@@ -64,6 +78,7 @@ class DayFragment : BaseFragment(R.layout.day_fragment) {
         with(notesList) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = notesAdapter
+            itemAnimator?.addDuration = ANIMATION_DURATION
         }
         initToolbar(toolbar)
         initObservable()

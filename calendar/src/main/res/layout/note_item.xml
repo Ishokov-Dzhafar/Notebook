@@ -33,15 +33,13 @@
                     style="@style/TitleTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                     />
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/createDateTV"
                     style="@style/GreyNormalTextStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <TextView
@@ -50,44 +48,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="5"
-                />
+                android:maxLines="5" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteBtn"
+                style="@style/MaterialButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="@dimen/normal_margin"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/GreyNormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/work_interval" />
-
-                    <TextView
-                        android:id="@+id/dateIntervalTV"
-                        style="@style/GreyNormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/deleteBtn"
-                    style="@style/MaterialButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete" />
-
-            </LinearLayout>
+                android:text="@string/delete" />
 
         </LinearLayout>
 
