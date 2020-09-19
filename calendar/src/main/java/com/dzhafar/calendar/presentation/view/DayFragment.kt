@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.dzhafar.calendar.R
 import com.dzhafar.calendar.di.CalendarComponent
 import com.dzhafar.calendar.presentation.view.adapters.NotesAdapter
