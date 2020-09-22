@@ -75,4 +75,6 @@ dependencies {
     implementation gson
 
     testImplementation mokitoCore
+
+    testImplementation robolectric
 }
