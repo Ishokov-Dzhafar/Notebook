@@ -15,6 +15,7 @@ ext {
     constraintLayoutVersion = '2.0.0-beta8'
     rvAdapterDelegatesVersion = '4.3.0'
     gsonVersion = '2.8.6'
+    kakaoVersion = '2.4.0'
 
 
     // Navigation
@@ -67,5 +68,8 @@ ext {
 
     // Gson
     gson = "com.google.code.gson:gson:$gsonVersion"
+
+    // Kakao UI testing
+    kakao = "com.agoda.kakao:kakao:$kakaoVersion"
 
 }
