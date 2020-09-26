@@ -6,7 +6,6 @@ import com.dzhafar.notes.domain.repositories.NoteRepository
 import com.dzhafar.notes.presentation.vm.NoteListVM
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
