@@ -1,9 +1,11 @@
-package com.dzhafar.notes.presentation.view
+package com.dzhafar.notes.presentation.vm
 
+import com.dzhafar.coreDbApi.data.dao.NoteDao
+import com.dzhafar.coreDbApi.data.entity.NoteEntity
+import com.dzhafar.coreDbApi.di.DBApi
+import com.dzhafar.notes.data.repository.NoteRepositoryImpl
 import com.dzhafar.notes.domain.interactors.NoteInteractorImpl
 import com.dzhafar.notes.domain.models.NoteModel
-import com.dzhafar.notes.domain.repositories.NoteRepository
-import com.dzhafar.notes.presentation.vm.NoteListVM
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.flow
 import org.junit.Before
@@ -19,7 +21,7 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class NoteListFragmentTest {
+class NoteListViewModelTest {
 
     private lateinit var viewModel: NoteListVM
 
@@ -29,8 +31,17 @@ class NoteListFragmentTest {
         NoteModel(3L, "text3", 1600715483, "title3", null)
     )
 
+    private val noteEntities = listOf(
+        NoteEntity(1L, "text1", 1600715483, "title1", null),
+        NoteEntity(2L, "text2", 1600715483, "title2", null),
+        NoteEntity(3L, "text3", 1600715483, "title3", null)
+    )
+
     @Mock
-    private lateinit var noteRepository: NoteRepository
+    private lateinit var dbApi: DBApi
+
+    @Mock
+    lateinit var noteDao: NoteDao
 
     @Rule
     @JvmField
@@ -38,15 +49,19 @@ class NoteListFragmentTest {
 
     @Before
     fun init() {
-        Mockito.`when`(noteRepository.getNoteList()).thenReturn(
-            flow { emit(notes) }
+        Mockito.`when`(dbApi.noteDao()).thenReturn(
+            noteDao
         )
+        Mockito.`when`(dbApi.noteDao().fetchAll()).thenReturn(
+            flow { emit(noteEntities) }
+        )
+        val noteRepository = NoteRepositoryImpl(dbApi)
         val noteInteractor = NoteInteractorImpl(noteRepository)
         viewModel = NoteListVM(noteInteractor)
     }
 
     @Test
-    fun loadNotes() {
+    fun `fetch notes and mapping entity to model success verification`() {
         viewModel.noteModelList.observeForever {
             assertEquals(it, notes)
         }
