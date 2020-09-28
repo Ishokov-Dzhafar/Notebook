@@ -70,6 +70,9 @@ ext {
     // Gson
     gson = "com.google.code.gson:gson:$gsonVersion"
 
+    //Robolectric
+    robolectric = 'org.robolectric:robolectric:4.3'
+
     // Kakao UI testing
     kakao = "com.agoda.kakao:kakao:$kakaoVersion"
 
