@@ -90,4 +90,7 @@ dependencies {
 
     implementation constraintLayout
 
+    androidTestImplementation androidTestRule
+    androidTestImplementation kakao
+
 }
