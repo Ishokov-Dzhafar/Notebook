@@ -15,6 +15,8 @@ ext {
     constraintLayoutVersion = '2.0.0-beta8'
     rvAdapterDelegatesVersion = '4.3.0'
     gsonVersion = '2.8.6'
+    kakaoVersion = '2.4.0'
+    androidTestRuleVersion = '1.3.0'
 
 
     // Navigation
@@ -71,4 +73,9 @@ ext {
     //Robolectric
     robolectric = 'org.robolectric:robolectric:4.3'
 
+    // Kakao UI testing
+    kakao = "com.agoda.kakao:kakao:$kakaoVersion"
+
+    // Androidx test rules
+    androidTestRule = "androidx.test:rules:$androidTestRuleVersion"
 }
