@@ -5,7 +5,6 @@ import com.dzhafar.notes.domain.repositories.NoteRepository
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -64,9 +63,5 @@ class NoteInteractorImplTest {
             val result = noteInteractorImpl.deleteNote(note)
             assertEquals(result, Unit)
         }
-    }
-
-    @After
-    fun tearDown() {
     }
 }
