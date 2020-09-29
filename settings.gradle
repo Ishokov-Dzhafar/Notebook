@@ -1,6 +1,6 @@
 include ':coreApi'
 include ':navigationApi'
-include ':navigation'
+include ':navigationImpl'
 include ':calendar'
 include ':coreCommon'
 rootProject.name='Notebook'
