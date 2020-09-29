@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM Note ORDER BY date DESC")
+    @Query("SELECT * FROM $NOTE ORDER BY date DESC")
     fun fetchAll(): Flow<List<NoteEntity>>
 
     @Insert
@@ -20,13 +20,13 @@ interface NoteDao {
     @Update
     suspend fun updateNote(noteEntity: NoteEntity)
 
-    @Query("DELETE FROM Note WHERE id = :noteId")
+    @Query("DELETE FROM $NOTE WHERE id = :noteId")
     suspend fun deleteNoteById(noteId: Long)
 
     @Transaction
-    @Query("SELECT * FROM $NOTE WHERE dayId = :dayId")
+    @Query("SELECT * FROM $NOTE WHERE dayId = :dayId ORDER BY date DESC")
     fun fetchNotesByDayId(dayId: Long): Flow<List<NoteEntity>>
 
-    @Query("SELECT * FROM Note WHERE id = :noteId")
+    @Query("SELECT * FROM $NOTE WHERE id = :noteId")
     suspend fun fetchNoteById(noteId: Long): NoteEntity
 }
