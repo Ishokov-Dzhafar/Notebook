@@ -18,7 +18,7 @@ Animation with MotionLayout. Have Custom View for recycler view item.
 
 ![alt text](https://github.com/Ishokov-Dzhafar/Notebook/blob/develop/notebook_app.gif?raw=true)
 
-###Feature
+### Feature
 - [x] UI test
 - [x] Integration test
 - [ ] Custom lint rule
