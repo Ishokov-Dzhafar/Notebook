@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM Note")
+    @Query("SELECT * FROM Note ORDER BY date DESC")
     fun fetchAll(): Flow<List<NoteEntity>>
 
     @Insert

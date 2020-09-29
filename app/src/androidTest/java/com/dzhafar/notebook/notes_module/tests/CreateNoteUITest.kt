@@ -35,8 +35,7 @@ class CreateNoteUITest {
         }
         noteListScreen {
             noteList {
-                scrollToEnd()
-                lastChild<NoteItem> {
+                firstChild<NoteItem> {
                     isVisible()
                     title { hasText(titleText) }
                     body { hasText(bodyText) }
