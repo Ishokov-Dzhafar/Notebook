@@ -42,8 +42,6 @@ apply from: "$project.rootDir/dependencies_version.gradle"
 
 dependencies {
     implementation project(':coreApi')
-    implementation project(':coreDbApi')
-    implementation project(':navigationApi')
     implementation project(':coreCommon')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

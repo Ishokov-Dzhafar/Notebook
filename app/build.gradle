@@ -45,7 +45,6 @@ dependencies {
     implementation project(':core')
     implementation project(':notes')
     implementation project(':calendar')
-    implementation project(':navigationImpl')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
