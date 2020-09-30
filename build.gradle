@@ -25,12 +25,18 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-
+        classpath "gradle.plugin.dev.arunkumar:scabbard-gradle-plugin:0.4.0"
     }
 }
 
 allprojects {
     apply from:"$rootDir/detekt.gradle"
+    apply plugin: "scabbard.gradle"
+
+    scabbard {
+        enabled true
+        outputFormat "svg"
+    }
 
     repositories {
         google()

@@ -2,6 +2,7 @@
 ## Multimodule application with using library:
 * ViewModel (AAC)
 * LiveData (AAC)
+* Flow, Coroutine
 * Room (AAC)
 * DataBinding (AAC)
 * Navigation Component (AAC)
