@@ -25,7 +25,7 @@ class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
             EXPLANATION,
             Category.CORRECTNESS,
             10,
-            Severity.WARNING,
+            Severity.ERROR,
             Implementation(CatchErrorFlowWarning::class.java, Scope.JAVA_FILE_SCOPE)
         )
     }
@@ -42,9 +42,9 @@ class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
 
         override fun visitClass(node: UClass) {
             val flowField = node.methods.filter {
-                it.returnTypeReference?.type?.canonicalText == "kotlinx.coroutines.flow.Flow"
+                it.returnType?.canonicalText == "kotlinx.coroutines.flow.Flow"
             }.toMutableSet()
-
+            // val flowField = node.references
             node.accept(object : AbstractUastVisitor() {
                 override fun visitCallExpression(node: UCallExpression): Boolean {
                     return if (node.methodName == "catch") {
@@ -61,7 +61,12 @@ class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
                 }
             })
             flowField.forEach {
-                context.report(ISSUE, it, context.getLocation(it), "Error missing catch function on Flow")
+                context.report(
+                    ISSUE,
+                    it,
+                    context.getLocation(it),
+                    "Error missing catch function on Flow"
+                )
             }
         }
     }
