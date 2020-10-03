@@ -5,11 +5,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 
 class TestRule {
+    val args: Flow<Int> = flow { emit(123) }
+
     suspend fun testFun() {
-        flowFun().collect {
+        args.collect {
             print(it)
         }
     }
 
-    fun flowFun(): Flow<Int> = flow { emit(1) }
+    fun flowFun(): Flow<Int> = flow{ emit(111)}
 }

@@ -32,18 +32,18 @@ class ExampleUnitTest {
                         class TestClass {
                             val args: Flow<Int> = flow { emit(123) }
                             
-                            fun testFun() {
-                                flowFun().collect {
+                            suspend fun testFun() {
+                                args.collect {
                                     print(it)
                                 }
                             }
                             
-                            fun flowFun(): Flow<Int> = flow{ emit(111)}
+                            fun flowFun(): Flow<Int> = flow{ emit(111) }
                         }
                     """
                 )
             )
-            .issues(CatchErrorFlowWarning.ISSUE)
+            .issues(CatchErrorFlow.ISSUE)
             .run()
             .expect("3232")
     }

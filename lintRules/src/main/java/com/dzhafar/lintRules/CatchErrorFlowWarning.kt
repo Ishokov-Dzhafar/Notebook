@@ -10,6 +10,8 @@ import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UClass
+import org.jetbrains.uast.UMethod
+import org.jetbrains.uast.getUCallExpression
 import org.jetbrains.uast.visitor.AbstractUastVisitor
 
 class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
@@ -19,7 +21,7 @@ class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
         const val BRIEF_DESCRIPTION = "Catch error was forget for Flow"
         const val EXPLANATION = "Add catch function for Flow"
 
-        val ISSUE = Issue.Companion.create(
+        val ISSUE = Issue.create(
             ID,
             BRIEF_DESCRIPTION,
             EXPLANATION,
@@ -33,7 +35,7 @@ class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
     override fun getApplicableUastTypes() = listOf(UClass::class.java)
 
     override fun createUastHandler(context: JavaContext): UElementHandler? {
-        return super.createUastHandler(context)
+        return MissingCatchErrorFlowVisitor(context)
     }
 
     class MissingCatchErrorFlowVisitor(
@@ -41,8 +43,9 @@ class CatchErrorFlowWarning : Detector(), Detector.UastScanner {
     ) : UElementHandler() {
 
         override fun visitClass(node: UClass) {
-            val flowField = node.methods.filter {
-                it.returnType?.canonicalText == "kotlinx.coroutines.flow.Flow"
+            val methods = node
+            val flowField = node.allMethods.filter {
+                it.returnType?.canonicalText == "kotlinx.coroutines.flow.collect"
             }.toMutableSet()
             // val flowField = node.references
             node.accept(object : AbstractUastVisitor() {
