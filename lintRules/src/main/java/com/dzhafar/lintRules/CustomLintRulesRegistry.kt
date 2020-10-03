@@ -6,7 +6,6 @@ import com.android.tools.lint.detector.api.Issue
 class CustomLintRulesRegistry : IssueRegistry() {
     override val issues: List<Issue>
         get() = listOf(
-            CatchErrorFlowWarning.ISSUE,
             CatchErrorFlow.ISSUE,
             CustomCardViewRule.ISSUE
         )

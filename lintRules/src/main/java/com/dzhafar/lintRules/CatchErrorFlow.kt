@@ -8,19 +8,14 @@ import com.android.tools.lint.detector.api.Issue
 import com.android.tools.lint.detector.api.JavaContext
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
-import com.intellij.psi.JavaElementVisitor
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiMethod
-import com.intellij.psi.PsiMethodCallExpression
 import com.intellij.psi.PsiParameter
 import org.jetbrains.uast.UCallExpression
-import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UExpression
-import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.asRecursiveLogString
 import org.jetbrains.uast.getContainingUMethod
 
+// НА ЭТОТ РУЛ ПОКА НЕ ОБРАЩАЙТЕ ВНИМАНИЕ - ОН ЕЩЕ НЕ ДОДЕЛАН
 
 class CatchErrorFlow : Detector(), Detector.UastScanner {
     companion object {
@@ -39,8 +34,6 @@ class CatchErrorFlow : Detector(), Detector.UastScanner {
         )
     }
 
-    //override fun getApplicableMethodNames() = listOf("collect")
-
     override fun getApplicableUastTypes() = listOf(UCallExpression::class.java)
 
     override fun createUastHandler(context: JavaContext): UElementHandler? {
@@ -52,11 +45,14 @@ class CatchErrorFlow : Detector(), Detector.UastScanner {
     ) : UElementHandler() {
 
         override fun visitCallExpression(node: UCallExpression) {
-            val uMethod = node.getContainingUMethod()
-            val isStatic = uMethod?.isStatic
-            print(node.asLogString())
-            print(node.asSourceString())
-            print(node.asRecursiveLogString())
+            val uMethod = node.getContainingUMethod()?.psi
+            if (node.methodIdentifier?.name == "collect") {
+                println("COLLECT")
+                print("-------------------")
+                println(node.asRecursiveLogString())
+                println(node.receiver?.asRecursiveLogString())
+                print("-------------------")
+            }
             if (context.evaluator.isMemberInClass(uMethod, "kotlinx.coroutines.flow.Flow")) {
                 node.resolve()?.let { resolvedMethod ->
                     val mapping: Map<UExpression, PsiParameter> =
