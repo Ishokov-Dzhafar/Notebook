@@ -7,6 +7,7 @@ class CustomLintRulesRegistry : IssueRegistry() {
     override val issues: List<Issue>
         get() = listOf(
             CatchErrorFlowWarning.ISSUE,
-            CatchErrorFlow.ISSUE
+            CatchErrorFlow.ISSUE,
+            CustomCardViewRule.ISSUE
         )
 }

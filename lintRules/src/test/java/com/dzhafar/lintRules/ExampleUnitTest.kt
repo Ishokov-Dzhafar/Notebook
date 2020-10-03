@@ -1,6 +1,7 @@
 package com.dzhafar.lintRules
 
 import com.android.tools.lint.checks.infrastructure.TestFiles.kt
+import com.android.tools.lint.checks.infrastructure.TestFiles.xml
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -44,6 +45,45 @@ class ExampleUnitTest {
                 )
             )
             .issues(CatchErrorFlow.ISSUE)
+            .run()
+            .expect("3232")
+    }
+
+    @Test
+    fun `missing attribute in CustomCardView`() {
+        lint()
+            .allowMissingSdk()
+            .files(
+                xml(
+                    "path.xml",
+                    """
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.google.io.demo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >                        
+<com.dzhafar.notes.presentation.view.CustomCardView 
+                        android:id="@+id/customCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+            
+                    <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:textStyle="bold" />
+                            
+                            <TextView
+                            android:id="@+id/body"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start" />
+                    
+            </com.dzhafar.notes.presentation.view.CustomCardView>
+            </FrameLayout>"""
+                )
+            )
+            .issues(CustomCardViewRule.ISSUE)
             .run()
             .expect("3232")
     }
