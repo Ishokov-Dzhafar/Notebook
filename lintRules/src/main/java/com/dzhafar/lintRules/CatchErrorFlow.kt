@@ -14,9 +14,11 @@ import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiMethodCallExpression
 import com.intellij.psi.PsiParameter
 import org.jetbrains.uast.UCallExpression
+import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.UMethod
+import org.jetbrains.uast.asRecursiveLogString
 import org.jetbrains.uast.getContainingUMethod
 
 
@@ -52,7 +54,10 @@ class CatchErrorFlow : Detector(), Detector.UastScanner {
         override fun visitCallExpression(node: UCallExpression) {
             val uMethod = node.getContainingUMethod()
             val isStatic = uMethod?.isStatic
-            if (context.evaluator.isMemberInClass(uMethod, "kotlinx.coroutines.flow")) {
+            print(node.asLogString())
+            print(node.asSourceString())
+            print(node.asRecursiveLogString())
+            if (context.evaluator.isMemberInClass(uMethod, "kotlinx.coroutines.flow.Flow")) {
                 node.resolve()?.let { resolvedMethod ->
                     val mapping: Map<UExpression, PsiParameter> =
                         context.evaluator.computeArgumentMapping(node, resolvedMethod)
