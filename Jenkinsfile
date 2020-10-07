@@ -10,10 +10,7 @@ pipeline {
             steps{
                 checkout([
                 $class: 'GitSCM',
-                branches: [[name: '*/develop']],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [[$class: 'CleanCheckout']],
-                submoduleCfg: [],
+                branches: [[name: '*/jenkins']],
                 userRemoteConfigs: [[url: 'https://github.com/Ishokov-Dzhafar/Notebook']]
             ])
             }
@@ -28,14 +25,9 @@ pipeline {
                 sh './gradlew testDebugUnitTest'
             }
         }
-         stage("build") {
-            steps{
+        stage("build") {
+            steps {
                 sh './gradlew clean assembleDebug'
-            }
-        }
-        stage("lscpu") {
-            steps{
-                sh 'lscpu && free -m'
             }
         }
     }
