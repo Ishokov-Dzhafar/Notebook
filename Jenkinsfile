@@ -15,6 +15,11 @@ pipeline {
             ])
             }
         }
+        stage("clean project") {
+            steps{
+                sh './gradlew clean'
+            }
+        }
         stage("detekt") {
             steps{
                 sh './gradlew detekt'
@@ -27,7 +32,7 @@ pipeline {
         }
         stage("build") {
             steps {
-                sh './gradlew clean assembleDebug'
+                sh './gradlew assembleDebug'
             }
         }
     }
