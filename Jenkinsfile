@@ -7,7 +7,7 @@ pipeline {
     }
     stages {
         stage("init") {
-            steps{
+            steps {
                 checkout([
                 $class: 'GitSCM',
                 branches: [[name: '*/jenkins']],
@@ -16,17 +16,17 @@ pipeline {
             }
         }
         stage("clean project") {
-            steps{
+            steps {
                 sh './gradlew clean'
             }
         }
         stage("detekt") {
-            steps{
+            steps {
                 sh './gradlew detekt'
             }
         }
         stage("test") {
-            steps{
+            steps {
                 sh './gradlew testDebugUnitTest'
             }
         }
