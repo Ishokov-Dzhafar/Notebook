@@ -1,3 +1,4 @@
+include ':lintRules'
 include ':coreApi'
 include ':navigationApi'
 include ':navigationImpl'
